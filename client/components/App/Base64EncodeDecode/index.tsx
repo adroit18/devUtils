@@ -1,0 +1,121 @@
+import React from "react";
+import Icon from '@mdi/react'
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
+import { mdiAlertCircleOutline } from '@mdi/js';
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+
+const AVAILABLE_ACTIONS = {
+  ENCODE: {
+    key: "ENCODE",
+    action: function (val: string): string {
+      return btoa(val);
+    },
+  },
+  DECODE: {
+    key: "DECODE",
+    action: function (val: string): string {
+      return atob(val);
+    },
+  },
+};
+
+export default function TextDiff(): JSX.Element {
+  const [toEncodeText, setEncodeText] = React.useState<string>("");
+  const [toDecodeText, setDecodeText] = React.useState<string>("");
+  const [error, setErrorMessage] = React.useState<string>("");
+  const [actionToPerform, setActionToPerform] = React.useState<string>(
+    AVAILABLE_ACTIONS.ENCODE.key
+  );
+
+  React.useEffect(() => {
+    try {
+      if (actionToPerform === AVAILABLE_ACTIONS.ENCODE.key) {
+        setDecodeText(AVAILABLE_ACTIONS.ENCODE.action(toEncodeText));
+      } else if (actionToPerform === AVAILABLE_ACTIONS.DECODE.key) {
+        setEncodeText(AVAILABLE_ACTIONS.DECODE.action(toDecodeText));
+      }
+      setErrorMessage("");
+    } catch (e) {
+      setErrorMessage(e.message);
+    }
+  }, [actionToPerform, toEncodeText, toDecodeText]);
+
+  return (
+    <Paper
+      variant="elevation"
+      elevation={3}
+      style={{ width: "70%", padding: "1% 10% 4% 10%" }}
+    >
+      <FormControl component="fieldset">
+        <RadioGroup
+          row
+          aria-label="Action"
+          name="Action"
+          value={actionToPerform}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setActionToPerform((event.target as HTMLInputElement).value)
+          }
+        >
+          <FormControlLabel
+            value={AVAILABLE_ACTIONS.ENCODE.key}
+            control={<Radio />}
+            label="Encode"
+          />
+          <FormControlLabel
+            value={AVAILABLE_ACTIONS.DECODE.key}
+            control={<Radio />}
+            label="Decode"
+          />
+        </RadioGroup>
+      </FormControl>
+      <Divider style={{ height: "5%", background: "white" }} />
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <TextareaAutosize
+          rowsMin={10}
+          cols={100}
+          value={toEncodeText}
+          onInput={(event) =>
+            setEncodeText((event.target as HTMLInputElement).value)
+          }
+          disabled={actionToPerform === AVAILABLE_ACTIONS.DECODE.key}
+        />
+        <Divider orientation="vertical" style={{width:"10%"}} />
+        <TextareaAutosize
+          rowsMin={10}
+          cols={100}
+          value={toDecodeText}
+          onInput={(event) =>
+            setDecodeText((event.target as HTMLInputElement).value)
+          }
+          disabled={actionToPerform === AVAILABLE_ACTIONS.ENCODE.key}
+        />
+      </div>
+      <Divider style={{ height: "10%", background: "white" }} />
+      {error && <span>
+         <Icon path={mdiAlertCircleOutline} title="Error Occured" size={1} color="red" />
+          <Typography>{error}</Typography>
+      </span>}
+      <ButtonGroup
+        size="large" color="primary"
+        aria-label="Swipe or Clear text"
+      >
+        <Button
+          onClick={() => {
+            setEncodeText("");
+            setDecodeText("");
+          }}
+        >
+          Clear
+        </Button>
+      </ButtonGroup>
+    </Paper>
+  );
+}
