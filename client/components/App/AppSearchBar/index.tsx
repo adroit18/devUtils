@@ -1,6 +1,6 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import UtilMenu from '../UtilMenu';
+import React from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import UtilMenu from "../UtilMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,10 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
-  }),
+  })
 );
 
-export default function AppSearchBar():JSX.Element {
+export default function AppSearchBar(props): JSX.Element {
+  const { showUtilityDispatch } = props;
   const classes = useStyles();
   const [showUtilMenu, setShowUtilMenu] = React.useState(false);
 
@@ -30,7 +31,12 @@ export default function AppSearchBar():JSX.Element {
 
   return (
     <div className={classes.root}>
-      <UtilMenu showUtilMenu={showUtilMenu} handleUtilMenuClose={handleUtilMenuClose} handleUtilMenuOpen={handleUtilMenuOpen}/>
+      <UtilMenu
+        showUtilMenu={showUtilMenu}
+        handleUtilMenuClose={handleUtilMenuClose}
+        handleUtilMenuOpen={handleUtilMenuOpen}
+        showUtilityDispatch={showUtilityDispatch}
+      />
     </div>
   );
 }

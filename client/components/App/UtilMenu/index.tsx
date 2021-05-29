@@ -20,7 +20,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { availableDevUtilOptions } from "../../../utils";
+import { availableDevUtilOptions } from "../../../constants";
 
 const drawerWidth = 270;
 
@@ -92,6 +92,7 @@ export default function UtilMenu(props: {
   showUtilMenu: boolean;
   handleUtilMenuClose: () => void;
   handleUtilMenuOpen: () => void;
+  showUtilityDispatch: () => void;
 }): JSX.Element {
   const classes = useStyles();
   const theme = useTheme();
@@ -148,10 +149,17 @@ export default function UtilMenu(props: {
         <Divider />
         <List>
           {availableDevUtilOptions.map((text) => (
-            <ListItem button key={text.name}>
-              <ListItemIcon onClick={() => props.handleUtilMenuOpen()}>
-                {text.icon}
-              </ListItemIcon>
+            <ListItem
+              button
+              key={text.id}
+              onClick={() =>
+                props.showUtilityDispatch({
+                  type: "setUtility",
+                  payload: text.id,
+                })
+              }
+            >
+              <ListItemIcon>{text.icon}</ListItemIcon>
               <ListItemText primary={text.name} />
             </ListItem>
           ))}

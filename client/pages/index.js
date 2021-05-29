@@ -1,10 +1,29 @@
+import React from "react";
 import Head from "next/head";
 import WorkArea from "../components/App/WorkArea/index";
 import AppSearchBar from "../components/App/AppSearchBar/index";
+import { UNIQUE_UTILITIES } from "../constants/index";
 
 // import FooterContainer from './../components/FooterContainer/index';
 
+const initialState = {
+  selectedUtility: UNIQUE_UTILITIES.JSON_FORMAT_OR_VALIDATE,
+};
+
+function whichUtilityReducer(state, action) {
+  switch (action.type) {
+    case "setUtility":
+      return { selectedUtility: action.payload };
+    default:
+      throw new Error();
+  }
+}
+
 export default function Home() {
+  const [state, showUtilityDispatch] = React.useReducer(
+    whichUtilityReducer,
+    initialState
+  );
   return (
     <html>
       <Head>
@@ -20,8 +39,11 @@ export default function Home() {
       </Head>
       <body>
         <main>
-          <AppSearchBar />
-          <WorkArea />
+          <AppSearchBar
+            state={state}
+            showUtilityDispatch={showUtilityDispatch}
+          />
+          <WorkArea state={state} showUtilityDispatch={showUtilityDispatch} />
         </main>
 
         {/* <footer>
