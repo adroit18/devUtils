@@ -17,7 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import { CURRENCY_TO_DETAILS } from "../../../../constants";
 
 export default function MeasurementConverter(): JSX.Element {
-  const [currencyMetadata, setCurrencyMetadata] = React.useState({});
+  const [currencyMetadata, setCurrencyMetadata] = React.useState<{[key:string]:number}>({});
   const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>("");
   const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>("");
   const [valFrom, setValFrom] = React.useState<number>();
@@ -50,7 +50,9 @@ export default function MeasurementConverter(): JSX.Element {
       const newValFrom = Number(takeCurrVal ? valFrom : valInput);
       setValFrom(newValFrom);
       if (newValFrom >= 0 && selectedUnitFrom && selectedUnitTo) {
-        setValTo(await convert(newValFrom, selectedUnitFrom, selectedUnitTo));
+        setValTo(
+          await convert(newValFrom, selectedUnitFrom, selectedUnitTo, "")
+        );
       }
     },
     [selectedUnitFrom, selectedUnitTo, valFrom]
@@ -62,14 +64,16 @@ export default function MeasurementConverter(): JSX.Element {
       const newValTo = Number(valInput);
       setValTo(newValTo);
       if (newValTo >= 0 && selectedUnitFrom && selectedUnitTo) {
-        setValFrom(await convert(newValTo, selectedUnitTo, selectedUnitFrom));
+        setValFrom(
+          await convert(newValTo, selectedUnitTo, selectedUnitFrom, "")
+        );
       }
     },
     [selectedUnitFrom, selectedUnitTo]
   );
 
   const fetchCurrencyData = React.useCallback(async () => {
-    const data = await exchangeRates().latest().base(baseCurrency).fetch();
+    const data = await exchangeRates().latest().base(baseCurrency).fetch() as {[key:string]:number};
     setCurrencyMetadata(data);
   }, [baseCurrency]);
 
@@ -197,7 +201,7 @@ export default function MeasurementConverter(): JSX.Element {
 
       <List style={{ marginTop: "2%" }}>
         <Grid spacing={4} direction="row" container>
-          {Object.keys(currencyMetadata).map((val, index) => {
+          {Object.keys(currencyMetadata).map((val:string, index) => {
             return (
               <Grid item xs={5} key={`${val}-${index}`}>
                 <Paper>

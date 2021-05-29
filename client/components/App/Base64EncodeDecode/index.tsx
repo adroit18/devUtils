@@ -1,5 +1,4 @@
 import React from "react";
-import Icon from '@mdi/react'
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -7,10 +6,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
-import { mdiAlertCircleOutline } from '@mdi/js';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Snackbars from "../../Snackbars";
 
 const AVAILABLE_ACTIONS = {
   ENCODE: {
@@ -87,7 +85,7 @@ export default function TextDiff(): JSX.Element {
           }
           disabled={actionToPerform === AVAILABLE_ACTIONS.DECODE.key}
         />
-        <Divider orientation="vertical" style={{width:"10%"}} />
+        <Divider orientation="vertical" style={{ width: "10%" }} />
         <TextareaAutosize
           rowsMin={10}
           cols={100}
@@ -99,12 +97,10 @@ export default function TextDiff(): JSX.Element {
         />
       </div>
       <Divider style={{ height: "10%", background: "white" }} />
-      {error && <span>
-         <Icon path={mdiAlertCircleOutline} title="Error Occured" size={1} color="red" />
-          <Typography>{error}</Typography>
-      </span>}
+      {error && <Snackbars message={error} severity={"error"} show={true} />}
       <ButtonGroup
-        size="large" color="primary"
+        size="large"
+        color="primary"
         aria-label="Swipe or Clear text"
       >
         <Button

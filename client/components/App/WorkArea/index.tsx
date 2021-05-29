@@ -1,7 +1,9 @@
 import React from "react";
 import { UNIQUE_UTILITIES_COMPONENTS } from "../../../constants";
 
-export default function WorkArea(props): JSX.Element {
+export default function WorkArea(props: {
+  state: { selectedUtility: string };
+}): JSX.Element {
   const {
     state: { selectedUtility },
   } = props;

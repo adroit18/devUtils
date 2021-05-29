@@ -21,6 +21,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { availableDevUtilOptions } from "../../../constants";
+import { dispatchAction } from "../../../constants/interface";
 
 const drawerWidth = 270;
 
@@ -92,7 +93,7 @@ export default function UtilMenu(props: {
   showUtilMenu: boolean;
   handleUtilMenuClose: () => void;
   handleUtilMenuOpen: () => void;
-  showUtilityDispatch: () => void;
+  showUtilityDispatch: (args:dispatchAction) => void;
 }): JSX.Element {
   const classes = useStyles();
   const theme = useTheme();

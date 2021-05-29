@@ -43,7 +43,9 @@ const Notes = dynamic(import("../components/App/Notes"), {
   ssr: false,
 });
 
-export const CURRENCY_TO_DETAILS = {
+export const CURRENCY_TO_DETAILS: {
+  [key: string]: { name: string; sign: string };
+} = {
   AUD: { name: "Australian Dollar", sign: "-" },
   BRL: { name: "Brazilian Real", sign: "-" },
   GBP: { name: "British Pound Sterline", sign: "-" },
@@ -90,7 +92,7 @@ export const UNIQUE_UTILITIES = {
   NOTER: "NOTER",
 };
 
-export const UNIQUE_UTILITIES_COMPONENTS = {
+export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   JSON_FORMAT_OR_VALIDATE: <JsonFormatAndValidateEditor />,
   TEXT_DIF: <TextDiff />,
   BASE64_ENCODE_DECODE: <Base64EncodeDecode />,
@@ -101,7 +103,11 @@ export const UNIQUE_UTILITIES_COMPONENTS = {
   NOTER: <Notes />,
 };
 
-export const availableDevUtilOptions = [
+export const availableDevUtilOptions: Array<{
+  name: string;
+  icon: JSX.Element;
+  id: string;
+}> = [
   {
     name: "Json format / validate",
     icon: <Icon path={mdiCodeJson} title="JSON Format / Validate" size={1.5} />,

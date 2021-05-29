@@ -20,9 +20,9 @@ ace.config.setModuleUrl(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function JsonFormatAndValidate(): any {
   const [content, setContent] = React.useState(["", ""]);
-  
+
   const getFormattedJson = React.useCallback((contentVal = []) => {
-    const [inputVal, ] = contentVal;
+    const [inputVal] = contentVal;
     try {
       const inputJson = JSON.parse(inputVal);
       const outputJson = JSON.stringify(inputJson, null, 2);
@@ -34,6 +34,7 @@ export default function JsonFormatAndValidate(): any {
 
   return (
     <SplitEditor
+      wrapEnabled={true}
       mode="json"
       theme="tomorrow"
       splits={2}
@@ -44,7 +45,7 @@ export default function JsonFormatAndValidate(): any {
       showPrintMargin={false}
       width={"90%"}
       height={"80%"}
-      style={{position:"absolute", marginLeft: "5%" }}
+      style={{ position: "absolute", marginLeft: "5%" }}
       fontSize={20}
     />
   );

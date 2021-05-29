@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function AppSearchBar(props): JSX.Element {
+export default function AppSearchBar(props: {
+  showUtilityDispatch: () => void;
+}): JSX.Element {
   const { showUtilityDispatch } = props;
   const classes = useStyles();
   const [showUtilMenu, setShowUtilMenu] = React.useState(false);
