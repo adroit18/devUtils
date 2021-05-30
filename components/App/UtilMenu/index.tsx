@@ -132,7 +132,7 @@ export default function UtilMenu(props: {
             </Typography>
             &nbsp;
             <Typography variant="h6" noWrap>
-              {ROUTE_TO_NAMES[pathname.substring(1)]}
+              {ROUTE_TO_NAMES[pathname.substring(1) as string]}
             </Typography>
           </Grid>
         </Toolbar>

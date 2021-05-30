@@ -103,7 +103,7 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "take-notes": <Notes />,
 };
 
-export const ROUTE_TO_NAMES = {
+export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "json-format-or-validate": "Json format or validate",
   "text-difference": "Compare text",
   "base64-encode-decode": "Encode Decode base64",
