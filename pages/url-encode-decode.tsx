@@ -2,6 +2,6 @@ import React from "react";
 import { ROUTE_TO_UNIQUE_UTILITIES } from "../constants";
 import HTML from "./_html";
 
-export default function TextDifference(): JSX.Element {
+export default function UrlEncodeDecode(): JSX.Element {
   return <HTML url={ROUTE_TO_UNIQUE_UTILITIES["url-encode-decode"]} />;
 }

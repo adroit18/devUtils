@@ -36,7 +36,7 @@ const CurrencyConverter = dynamic(
     ssr: false,
   }
 );
-const JsonXmlYml = dynamic(import("../components/App/Converters/JsonXmlYml"), {
+const JsonYamlXml = dynamic(import("../components/App/Converters/JsonYamlXml"), {
   ssr: false,
 });
 const Notes = dynamic(import("../components/App/Notes"), {
@@ -88,7 +88,7 @@ export const ROUTE_TO_UNIQUE_UTILITIES = {
   "url-encode-decode": "url-encode-decode",
   "unit-conversions": "conversions",
   "currency-conversion": "currency-conversion",
-  "json-yaml-xml-conversion": "json-yaml-yaml-conversion",
+  "json-yaml-xml-conversion": "json-yaml-xml-conversion",
   "take-notes": "take-notes",
 };
 
@@ -99,7 +99,7 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "url-encode-decode": <UrlEncodeDecode />,
   "unit-conversions": <MeasurementConverter />,
   "currency-conversion": <CurrencyConverter />,
-  "json-yaml-xml-conversion": <JsonXmlYml />,
+  "json-yaml-xml-conversion": <JsonYamlXml />,
   "take-notes": <Notes />,
 };
 

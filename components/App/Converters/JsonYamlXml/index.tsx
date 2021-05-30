@@ -32,7 +32,7 @@ ace.config.setModuleUrl(
   "https://cdn.jsdelivr.net/npm/ace-builds@1.4.8/src-noconflict/worker-xml.js"
 );
 
-export default function JsonXmlYml(): JSX.Element {
+export default function JsonYamlXml(): JSX.Element {
   const [jsonVal, setJsonVal] = React.useState("");
   const [yamlVal, setYamlVal] = React.useState("");
   const [xmlVal, setXmlVal] = React.useState("");
@@ -69,7 +69,7 @@ export default function JsonXmlYml(): JSX.Element {
         const signal = fetchRequestTracker?.signal;
         // fetchRequestTracker?.abort();
         const rawNewJsonVal = await fetch(
-          "http://localhost:3000/api/convertYamlToJson",
+          "/api/convertYamlToJson",
           {
             method: "POST",
             headers: {
