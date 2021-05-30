@@ -88,7 +88,7 @@ export const ROUTE_TO_UNIQUE_UTILITIES = {
   "url-encode-decode": "url-encode-decode",
   "unit-conversions": "conversions",
   "currency-conversion": "currency-conversion",
-  "json-yaml-xml-conversion": "json-xml-yaml-conversion",
+  "json-yaml-xml-conversion": "json-yaml-xml-conversion",
   "take-notes": "take-notes",
 };
 
