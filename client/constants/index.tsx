@@ -81,71 +81,71 @@ export const CURRENCY_TO_DETAILS: {
   USD: { name: "US Dollar", sign: "-" },
 };
 
-export const UNIQUE_UTILITIES = {
-  JSON_FORMAT_OR_VALIDATE: "JSON_FORMAT_OR_VALIDATE",
-  TEXT_DIF: "TEXT_DIF",
-  BASE64_ENCODE_DECODE: "BASE64_ENCODE_DECODE",
-  URL_ENCODE_DECODE: "URL_ENCODE_DECODE",
-  CONVERTERS: "CONVERTERS",
-  CURRENCY_CONVERSION: "CURRENCY_CONVERSION",
-  JSON_XML_YML: "JSON_XML_YML",
-  NOTER: "NOTER",
+export const ROUTE_TO_UNIQUE_UTILITIES = {
+  "json-format-or-validate": "json-format-or-validate",
+  "text-difference": "text-difference",
+  "base64-encode-decode": "base64-encode-decode",
+  "url-encode-decode": "url-encode-decode",
+  conversions: "conversions",
+  "currency-conversion": "currency-conversion",
+  "json-xml-yaml-conversion": "json-xml-yaml-conversion",
+  "take-notes": "take-notes",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
-  JSON_FORMAT_OR_VALIDATE: <JsonFormatAndValidateEditor />,
-  TEXT_DIF: <TextDiff />,
-  BASE64_ENCODE_DECODE: <Base64EncodeDecode />,
-  URL_ENCODE_DECODE: <UrlEncodeDecode />,
-  CONVERTERS: <MeasurementConverter />,
-  CURRENCY_CONVERSION: <CurrencyConverter />,
-  JSON_XML_YML: <JsonXmlYml />,
-  NOTER: <Notes />,
+  "json-format-or-validate": <JsonFormatAndValidateEditor />,
+  "text-difference": <TextDiff />,
+  "base64-encode-decode": <Base64EncodeDecode />,
+  "url-encode-decode": <UrlEncodeDecode />,
+  conversions: <MeasurementConverter />,
+  "currency-conversion": <CurrencyConverter />,
+  "json-xml-yaml-conversion": <JsonXmlYml />,
+  "take-notes": <Notes />,
 };
 
 export const availableDevUtilOptions: Array<{
   name: string;
   icon: JSX.Element;
-  id: string;
+  url: string;
 }> = [
   {
     name: "Json format / validate",
     icon: <Icon path={mdiCodeJson} title="JSON Format / Validate" size={1.5} />,
-    id: "JSON_FORMAT_OR_VALIDATE",
+    url: "json-format-or-validate",
   },
   {
     name: "Text diff",
     icon: <Icon path={mdiCompare} title="Text Diff" size={1.5} />,
-    id: "TEXT_DIF",
+    url: "text-difference",
   },
   {
     name: "Base64 encode / decode",
     icon: <Icon path={mdiCpu64Bit} title="Text Diff" size={1.5} />,
-    id: "BASE64_ENCODE_DECODE",
+    url: "base64-encode-decode",
   },
   {
     name: "Url encode / decode",
     icon: <Icon path={mdiKeyLink} title="Text Diff" size={1.5} />,
-    id: "URL_ENCODE_DECODE",
+    url: "url-encode-decode",
   },
   {
     name: "Converters",
     icon: <Icon path={mdiSwapHorizontal} title="Converters" size={1.5} />,
-    id: "CONVERTERS",
+    url: "conversions",
   },
   {
     name: "Currency conversion",
     icon: <Icon path={mdiCurrencyInr} title="Currency conversion" size={1.5} />,
-    id: "CURRENCY_CONVERSION",
+    url: "currency-conversion",
   },
   {
     name: "JSON : YML : XML",
     icon: <Icon path={mdiRecycleVariant} title="JSON : YML : XML" size={1.5} />,
-    id: "JSON_XML_YML",
+    url: "json-xml-yaml-conversion",
   },
   {
     name: "Noter",
     icon: <Icon path={mdiNoteMultipleOutline} title="Noter" size={1.5} />,
-    id: "NOTER",
+    url: "take-notes",
   },
 ];
