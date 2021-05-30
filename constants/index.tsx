@@ -86,9 +86,9 @@ export const ROUTE_TO_UNIQUE_UTILITIES = {
   "text-difference": "text-difference",
   "base64-encode-decode": "base64-encode-decode",
   "url-encode-decode": "url-encode-decode",
-  conversions: "conversions",
+  "unit-conversions": "conversions",
   "currency-conversion": "currency-conversion",
-  "json-xml-yaml-conversion": "json-xml-yaml-conversion",
+  "json-yaml-xml-conversion": "json-xml-yaml-conversion",
   "take-notes": "take-notes",
 };
 
@@ -97,10 +97,21 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "text-difference": <TextDiff />,
   "base64-encode-decode": <Base64EncodeDecode />,
   "url-encode-decode": <UrlEncodeDecode />,
-  conversions: <MeasurementConverter />,
+  "unit-conversions": <MeasurementConverter />,
   "currency-conversion": <CurrencyConverter />,
-  "json-xml-yaml-conversion": <JsonXmlYml />,
+  "json-yaml-xml-conversion": <JsonXmlYml />,
   "take-notes": <Notes />,
+};
+
+export const ROUTE_TO_NAMES = {
+  "json-format-or-validate": "Json format or validate",
+  "text-difference": "Compare text",
+  "base64-encode-decode": "Encode Decode base64",
+  "url-encode-decode": "Encode Decode url",
+  "unit-conversions": "Unit conversions",
+  "currency-conversion": "Currency conversion",
+  "json-yaml-xml-conversion": "Json, Yaml and Xml conversion",
+  "take-notes": "Notes",
 };
 
 export const availableDevUtilOptions: Array<{
@@ -131,7 +142,7 @@ export const availableDevUtilOptions: Array<{
   {
     name: "Converters",
     icon: <Icon path={mdiSwapHorizontal} title="Converters" size={1.5} />,
-    url: "conversions",
+    url: "unit-conversions",
   },
   {
     name: "Currency conversion",
@@ -141,7 +152,7 @@ export const availableDevUtilOptions: Array<{
   {
     name: "JSON : YML : XML",
     icon: <Icon path={mdiRecycleVariant} title="JSON : YML : XML" size={1.5} />,
-    url: "json-xml-yaml-conversion",
+    url: "json-yaml-xml-conversion",
   },
   {
     name: "Noter",

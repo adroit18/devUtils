@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   createStyles,
   makeStyles,
@@ -21,7 +22,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { availableDevUtilOptions } from "../../../constants";
+import { availableDevUtilOptions, ROUTE_TO_NAMES } from "../../../constants";
+import Grid from "@material-ui/core/Grid";
 
 const drawerWidth = 270;
 
@@ -97,7 +99,7 @@ export default function UtilMenu(props: {
   const classes = useStyles();
   const theme = useTheme();
   const open = props.showUtilMenu;
-
+  const { pathname } = useRouter();
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -119,9 +121,20 @@ export default function UtilMenu(props: {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Dev Utils
-          </Typography>
+          <Grid
+            container
+            direction="row"
+            justify="space-evenly"
+            alignItems="center"
+          >
+            <Typography variant="h6" noWrap>
+              Dev Utils
+            </Typography>
+            &nbsp;
+            <Typography variant="h6" noWrap>
+              {ROUTE_TO_NAMES[pathname.substring(1)]}
+            </Typography>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Drawer
