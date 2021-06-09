@@ -86,7 +86,7 @@ export const ROUTE_TO_UNIQUE_UTILITIES = {
   "text-difference": "text-difference",
   "base64-encode-decode": "base64-encode-decode",
   "url-encode-decode": "url-encode-decode",
-  "unit-conversions": "conversions",
+  "unit-conversions": "unit-conversions",
   "currency-conversion": "currency-conversion",
   "json-yaml-xml-conversion": "json-yaml-xml-conversion",
   "take-notes": "take-notes",
