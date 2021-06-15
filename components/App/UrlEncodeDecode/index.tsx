@@ -90,6 +90,7 @@ export default function TextDiff(): JSX.Element {
             setEncodeText((event.target as HTMLInputElement).value)
           }
           disabled={actionToPerform === AVAILABLE_ACTIONS.DECODE.key}
+          placeholder="Type (or paste) here"
         />
         <Divider orientation="vertical" style={{ width: "10%" }} />
         <TextareaAutosize
@@ -100,6 +101,7 @@ export default function TextDiff(): JSX.Element {
             setDecodeText((event.target as HTMLInputElement).value)
           }
           disabled={actionToPerform === AVAILABLE_ACTIONS.ENCODE.key}
+          placeholder="Type (or paste) here"
         />
       </div>
       <Divider style={{ height: "10%", background: "white" }} />

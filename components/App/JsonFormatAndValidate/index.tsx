@@ -7,6 +7,11 @@ import { split as SplitEditor } from "react-ace";
 const ace = require("ace-builds/src-min-noconflict/ace");
 import "ace-builds/src-min-noconflict/mode-json";
 import "ace-builds/src-min-noconflict/theme-tomorrow";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import { AVAILABLE_FUNCTIONS } from "../Calculators/MathematicsCalculator/constants";
+import { Divider } from "@material-ui/core";
 
 ace.config.set(
   "basePath",
@@ -33,20 +38,50 @@ export default function JsonFormatAndValidate(): any {
   }, []);
 
   return (
-    <SplitEditor
-      wrapEnabled={true}
-      mode="json"
-      theme="tomorrow"
-      splits={2}
-      orientation="beside"
-      value={content}
-      name="JSON_FORMAT_AND_VALIDATE"
-      onChange={(value, stat) => getFormattedJson(value, stat)}
-      showPrintMargin={false}
-      width={"90%"}
-      height={"80%"}
-      style={{ position: "absolute", marginLeft: "5%" }}
-      fontSize={20}
-    />
+    <Paper variant="elevation" elevation={3} style={{ width: "100%" }}>
+      <Grid container>
+        <Grid
+          item
+          xs={6}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography color="textSecondary" variant="h4">
+            Json
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={6}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Typography color="textSecondary" variant="h4">
+            Formatted Json
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <SplitEditor
+            wrapEnabled={true}
+            mode="json"
+            theme="tomorrow"
+            splits={2}
+            orientation="beside"
+            value={content}
+            name="JSON_FORMAT_AND_VALIDATE"
+            onChange={(value, stat) => getFormattedJson(value, stat)}
+            showPrintMargin={false}
+            width={"91%"}
+            height={"80%"}
+            style={{ position: "absolute" }}
+            fontSize={20}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }

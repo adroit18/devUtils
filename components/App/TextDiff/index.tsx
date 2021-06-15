@@ -4,7 +4,7 @@ import { diff as DiffEditor } from "react-ace";
 import "ace-builds/src-noconflict/theme-github";
 
 export default function TextDiff(): JSX.Element {
-  const [content, setContent] = React.useState(["", ""]);
+  const [content, setContent] = React.useState(["//paste first version of text here", "//past second version of text here"]);
 
   return (
     <DiffEditor
