@@ -99,7 +99,7 @@ export default function UtilMenu(props: {
   const classes = useStyles();
   const theme = useTheme();
   const open = props.showUtilMenu;
-  const { pathname } = useRouter();
+  const { pathname, asPath } = useRouter();
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -132,7 +132,7 @@ export default function UtilMenu(props: {
             </Typography>
             &nbsp;
             <Typography variant="h6" noWrap>
-              {ROUTE_TO_NAMES[pathname.substring(1) as string]}
+              {ROUTE_TO_NAMES[(asPath || pathname).substring(1) as string]}
             </Typography>
           </Grid>
         </Toolbar>

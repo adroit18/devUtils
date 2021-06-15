@@ -10,6 +10,7 @@ import {
   mdiCurrencyInr,
   mdiRecycleVariant,
   mdiNoteMultipleOutline,
+  mdiCalculatorVariant,
 } from "@mdi/js";
 
 const JsonFormatAndValidateEditor = dynamic(
@@ -36,10 +37,16 @@ const CurrencyConverter = dynamic(
     ssr: false,
   }
 );
-const JsonYamlXml = dynamic(import("../components/App/Converters/JsonYamlXml"), {
+const JsonYamlXml = dynamic(
+  import("../components/App/Converters/JsonYamlXml"),
+  {
+    ssr: false,
+  }
+);
+const Notes = dynamic(import("../components/App/Notes"), {
   ssr: false,
 });
-const Notes = dynamic(import("../components/App/Notes"), {
+const Calculators = dynamic(import("../components/App/Calculators"), {
   ssr: false,
 });
 
@@ -81,7 +88,7 @@ export const CURRENCY_TO_DETAILS: {
   USD: { name: "US Dollar", sign: "-" },
 };
 
-export const ROUTE_TO_UNIQUE_UTILITIES = {
+export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
   "json-format-or-validate": "json-format-or-validate",
   "text-difference": "text-difference",
   "base64-encode-decode": "base64-encode-decode",
@@ -90,6 +97,8 @@ export const ROUTE_TO_UNIQUE_UTILITIES = {
   "currency-conversion": "currency-conversion",
   "json-yaml-xml-conversion": "json-yaml-xml-conversion",
   "take-notes": "take-notes",
+  "calculators": "calculators",
+  "calculators/mathematics-calculator": "calculators/mathematics-calculator",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
@@ -101,6 +110,8 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "currency-conversion": <CurrencyConverter />,
   "json-yaml-xml-conversion": <JsonYamlXml />,
   "take-notes": <Notes />,
+  calculators: <Calculators />,
+  "calculators/mathematics-calculator": <Calculators />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
@@ -112,6 +123,8 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "currency-conversion": "Currency conversion",
   "json-yaml-xml-conversion": "Json, Yaml and Xml conversion",
   "take-notes": "Notes",
+  calculators: "Calculators",
+  "calculators/mathematics-calculator": "Mathematics Calculator",
 };
 
 export const availableDevUtilOptions: Array<{
@@ -158,5 +171,10 @@ export const availableDevUtilOptions: Array<{
     name: "Noter",
     icon: <Icon path={mdiNoteMultipleOutline} title="Noter" size={1.5} />,
     url: "take-notes",
+  },
+  {
+    name: "Calculators",
+    icon: <Icon path={mdiCalculatorVariant} title="Calculator " size={1.5} />,
+    url: "calculators",
   },
 ];
