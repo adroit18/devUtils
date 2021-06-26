@@ -21,7 +21,7 @@ export default function MathematicsCalculator(props: {
                 key={index}
                 style={{ textTransform: "none", margin: "0.5rem" }}
                 onClick={() => handleInput(operation?.name)}
-                color={operation?.name === "=" ? "primary" : ""}
+                color={operation?.name === "=" ? "primary" : "default"}
               >
                 {operation.name}
               </Button>
