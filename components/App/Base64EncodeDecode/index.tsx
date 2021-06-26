@@ -99,7 +99,14 @@ export default function TextDiff(): JSX.Element {
         />
       </div>
       <Divider style={{ height: "10%", background: "white" }} />
-      {error && <Snackbars message={error} severity={"error"} show={true} />}
+      {error && (
+        <Snackbars
+          message={error}
+          severity={"error"}
+          show={true}
+          setErrorMessage={setErrorMessage}
+        />
+      )}
       <ButtonGroup
         size="large"
         color="primary"

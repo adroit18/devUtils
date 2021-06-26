@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import Snackbar from "@material-ui/core/Snackbar";
@@ -18,12 +18,14 @@ export default function Snackbars(props: {
   severity: Color;
   message: string;
   show: boolean;
+  setErrorMessage: Dispatch<SetStateAction<string>>;
 }): JSX.Element {
-  const { severity, message, show } = props;
+  const { severity, message, show, setErrorMessage } = props;
   const [open, setOpen] = React.useState(show);
-  const classes = useStyles();
+
   const handleClose = () => {
     setOpen(false);
+    setErrorMessage("");
   };
 
   return (
@@ -41,9 +43,7 @@ export default function Snackbars(props: {
             aria-label="close"
             color="inherit"
             size="small"
-            onClick={() => {
-              setOpen(false);
-            }}
+            onClick={handleClose}
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>

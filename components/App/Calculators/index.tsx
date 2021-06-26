@@ -10,7 +10,7 @@ import Snackbars from "../../Snackbars";
 const CALCULATORS = [
   {
     id: "mathematics-calculator",
-    title:"Mathematics Calculator"
+    title: "Mathematics Calculator",
   },
 ];
 
@@ -19,7 +19,7 @@ export default function Calculator(): JSX.Element {
   const [error, setErrorMessage] = React.useState<string>("");
 
   const {
-    push:routerPush,
+    push: routerPush,
     query: { slug: currentCal },
   } = useRouter();
 
@@ -34,7 +34,7 @@ export default function Calculator(): JSX.Element {
   const handleCalculatorSelect = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    const newCal = event?.target?.value as string
+    const newCal = event?.target?.value as string;
     setSelectedCalculator(newCal);
     routerPush(`/calculators/${newCal}`);
   };
@@ -87,7 +87,12 @@ export default function Calculator(): JSX.Element {
         </Grid>
         <Grid item xs={8}>
           {error && (
-            <Snackbars message={error} severity={"error"} show={true} />
+            <Snackbars
+              message={error}
+              severity={"error"}
+              show={true}
+              setErrorMessage={setErrorMessage}
+            />
           )}
         </Grid>
       </Grid>

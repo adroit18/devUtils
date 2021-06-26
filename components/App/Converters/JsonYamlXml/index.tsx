@@ -185,7 +185,12 @@ export default function JsonYamlXml(): JSX.Element {
             />
           </div>
           {error && (
-            <Snackbars message={error} severity={"error"} show={true} />
+            <Snackbars
+              message={error}
+              severity={"error"}
+              show={true}
+              setErrorMessage={setErrorMessage}
+            />
           )}
         </Grid>
       </Grid>

@@ -17,10 +17,11 @@ export default function MathematicsCalculator(props: {
           if (operation.name) {
             return (
               <Button
-                variant="outlined"
+                variant={operation?.name === "=" ? "contained" : "outlined"}
                 key={index}
                 style={{ textTransform: "none", margin: "0.5rem" }}
                 onClick={() => handleInput(operation?.name)}
+                color={operation?.name === "=" ? "primary" : ""}
               >
                 {operation.name}
               </Button>
@@ -61,13 +62,20 @@ export default function MathematicsCalculator(props: {
         ) {
           setCalVal((calVal) => `${calVal + key}`);
         } else if (key === "=") {
-          if (calVal.indexOf("^") > -1) {
-            const base = calVal.slice(0, calVal.indexOf("^"));
-            const exponent = calVal.slice(calVal.indexOf("^") + 1);
-            setCalVal(eval("Math.pow(" + base + "," + exponent + ")"));
-          } else {
-            setCalVal((calVal) => eval(calVal));
-          }
+          setCalVal((calVal) => {
+            if (calVal.includes("_replace_with_power_val_")) {
+              setErrorMessage(
+                "please replace text <<_replace_with_power_val_>> with suitable power value "
+              );
+              return calVal;
+            } else if (!/^Math.pow\(\s?[0-9]+\s?,\s?[0-9]+\s?\)$/g.test(calVal)) {
+              setErrorMessage(
+                "Power calculation is allowed in isolation, please remove and additional operation/number while calculating power"
+              );
+              return calVal;
+            }
+            return `${eval(calVal)}`;
+          });
         } else if (key === "C") {
           setCalVal("");
         } else if (key === "*") {
@@ -107,7 +115,9 @@ export default function MathematicsCalculator(props: {
         } else if (key === "ln") {
           setCalVal((calVal) => `${Math.log(Number(calVal))}`);
         } else if (key === "x^") {
-          setCalVal((calVal) => calVal + "^");
+          setCalVal(
+            (calVal) => `Math.pow(${calVal}, _replace_with_power_val_)`
+          );
         } else if (key === "x!") {
           if (calVal === "0") {
             setCalVal("1");
