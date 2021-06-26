@@ -63,16 +63,20 @@ export default function MathematicsCalculator(props: {
           setCalVal((calVal) => `${calVal + key}`);
         } else if (key === "=") {
           setCalVal((calVal) => {
-            if (calVal.includes("_replace_with_power_val_")) {
-              setErrorMessage(
-                "please replace text <<_replace_with_power_val_>> with suitable power value "
-              );
-              return calVal;
-            } else if (!/^Math.pow\(\s?[0-9]+\s?,\s?[0-9]+\s?\)$/g.test(calVal)) {
-              setErrorMessage(
-                "Power calculation is allowed in isolation, please remove and additional operation/number while calculating power"
-              );
-              return calVal;
+            if (calVal.includes("Math.pow")) {
+              if (calVal.includes("_replace_with_power_val_")) {
+                setErrorMessage(
+                  "please replace text <<_replace_with_power_val_>> with suitable power value "
+                );
+                return calVal;
+              } else if (
+                !/^Math.pow\(\s?[0-9]+\s?,\s?[0-9]+\s?\)$/g.test(calVal)
+              ) {
+                setErrorMessage(
+                  "Power calculation is allowed in isolation, please remove and additional operation/number while calculating power"
+                );
+                return calVal;
+              }
             }
             return `${eval(calVal)}`;
           });
