@@ -97,8 +97,12 @@ export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
   "currency-conversion": "currency-conversion",
   "json-yaml-xml-conversion": "json-yaml-xml-conversion",
   "take-notes": "take-notes",
-  "calculators": "calculators",
+  calculators: "calculators",
   "calculators/mathematics-calculator": "calculators/mathematics-calculator",
+  "calculators/simple-interest-calculator":
+    "calculators/simple-interest-calculator",
+  "calculators/compound-interest-calculator":
+    "calculators/compound-interest-calculator",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
@@ -112,6 +116,8 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "take-notes": <Notes />,
   calculators: <Calculators />,
   "calculators/mathematics-calculator": <Calculators />,
+  "calculators/simple-interest-calculator": <Calculators />,
+  "calculators/compound-interest-calculator": <Calculators />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
@@ -125,6 +131,8 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "take-notes": "Notes",
   calculators: "Calculators",
   "calculators/mathematics-calculator": "Mathematics Calculator",
+  "calculators/simple-interest-calculator": "Simple Interest Calculator",
+  "calculators/compound-interest-calculator": "Compound Interest Calculator",
 };
 
 export const availableDevUtilOptions: Array<{

@@ -6,13 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbars from "../../Snackbars";
-
-const CALCULATORS = [
-  {
-    id: "mathematics-calculator",
-    title: "Mathematics Calculator",
-  },
-];
+import SimpleInterestCalculator from "./SimpleInterestCalculator";
 
 export default function Calculator(): JSX.Element {
   const [selectedCalculator, setSelectedCalculator] = React.useState("");
@@ -22,6 +16,26 @@ export default function Calculator(): JSX.Element {
     push: routerPush,
     query: { slug: currentCal },
   } = useRouter();
+
+  const { current: CALCULATORS } = React.useRef<{
+    [key: string]: { id: string; title: string; component: JSX.Element };
+  }>({
+    "mathematics-calculator": {
+      id: "mathematics-calculator",
+      title: "Mathematics Calculator",
+      component: <MathematicsCalculator setErrorMessage={setErrorMessage} />,
+    },
+    "simple-interest-calculator": {
+      id: "simple-interest-calculator",
+      title: "Simple Interest Calculator",
+      component: <SimpleInterestCalculator setErrorMessage={setErrorMessage} />,
+    },
+    "compound-interest-calculator": {
+      id: "compound-interest-calculator",
+      title: "Compound Interest Calculator",
+      component: <MathematicsCalculator setErrorMessage={setErrorMessage} />,
+    },
+  });
 
   React.useEffect(() => {
     const defaultCal =
@@ -40,7 +54,7 @@ export default function Calculator(): JSX.Element {
   };
 
   const getCalculatorOptions = React.useCallback(() => {
-    return CALCULATORS.map((val, index: number) => {
+    return Object.values(CALCULATORS).map((val, index: number) => {
       return (
         <MenuItem value={val.id} key={`${val.id}_${index}`}>
           {val.title}
@@ -79,11 +93,7 @@ export default function Calculator(): JSX.Element {
           </TextField>
         </Grid>
         <Grid item xs={8}>
-          {selectedCalculator == "mathematics-calculator" ? (
-            <MathematicsCalculator setErrorMessage={setErrorMessage} />
-          ) : (
-            ""
-          )}
+          {CALCULATORS[selectedCalculator]?.component}
         </Grid>
         <Grid item xs={8}>
           {error && (
