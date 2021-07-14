@@ -7,6 +7,8 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbars from "../../Snackbars";
 import SimpleInterestCalculator from "./SimpleInterestCalculator";
+import CompoundInterestCalculator from "./CompoundInterest";
+import DateDifferenceCalculator from "./DateDifferenceCalculator";
 
 export default function Calculator(): JSX.Element {
   const [selectedCalculator, setSelectedCalculator] = React.useState("");
@@ -33,7 +35,14 @@ export default function Calculator(): JSX.Element {
     "compound-interest-calculator": {
       id: "compound-interest-calculator",
       title: "Compound Interest Calculator",
-      component: <MathematicsCalculator setErrorMessage={setErrorMessage} />,
+      component: (
+        <CompoundInterestCalculator setErrorMessage={setErrorMessage} />
+      ),
+    },
+    "date-difference-calculator": {
+      id: "date-difference-calculator",
+      title: "Date Difference Calculator",
+      component: <DateDifferenceCalculator setErrorMessage={setErrorMessage} />,
     },
   });
 

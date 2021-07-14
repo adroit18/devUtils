@@ -103,6 +103,7 @@ export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
     "calculators/simple-interest-calculator",
   "calculators/compound-interest-calculator":
     "calculators/compound-interest-calculator",
+  "calculators/date-difference-calculator": "calculators/date-difference-calculator",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
@@ -118,6 +119,7 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "calculators/mathematics-calculator": <Calculators />,
   "calculators/simple-interest-calculator": <Calculators />,
   "calculators/compound-interest-calculator": <Calculators />,
+  "calculators/date-difference-calculator": <Calculators />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
@@ -133,6 +135,7 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "calculators/mathematics-calculator": "Mathematics Calculator",
   "calculators/simple-interest-calculator": "Simple Interest Calculator",
   "calculators/compound-interest-calculator": "Compound Interest Calculator",
+  "calculators/date-difference-calculator": "Date Difference Calculator",
 };
 
 export const availableDevUtilOptions: Array<{
