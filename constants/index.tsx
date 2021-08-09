@@ -11,6 +11,7 @@ import {
   mdiRecycleVariant,
   mdiNoteMultipleOutline,
   mdiCalculatorVariant,
+  mdiClock,
 } from "@mdi/js";
 
 const JsonFormatAndValidateEditor = dynamic(
@@ -47,6 +48,9 @@ const Notes = dynamic(import("../components/App/Notes"), {
   ssr: false,
 });
 const Calculators = dynamic(import("../components/App/Calculators"), {
+  ssr: false,
+});
+const Time = dynamic(import("../components/App/Time"), {
   ssr: false,
 });
 
@@ -103,7 +107,9 @@ export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
     "calculators/simple-interest-calculator",
   "calculators/compound-interest-calculator":
     "calculators/compound-interest-calculator",
-  "calculators/date-difference-calculator": "calculators/date-difference-calculator",
+  "calculators/date-difference-calculator":
+    "calculators/date-difference-calculator",
+  time: "time",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
@@ -120,6 +126,7 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "calculators/simple-interest-calculator": <Calculators />,
   "calculators/compound-interest-calculator": <Calculators />,
   "calculators/date-difference-calculator": <Calculators />,
+  time: <Time />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
@@ -136,6 +143,7 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "calculators/simple-interest-calculator": "Simple Interest Calculator",
   "calculators/compound-interest-calculator": "Compound Interest Calculator",
   "calculators/date-difference-calculator": "Date Difference Calculator",
+  time: "Time",
 };
 
 export const availableDevUtilOptions: Array<{
@@ -187,5 +195,10 @@ export const availableDevUtilOptions: Array<{
     name: "Calculators",
     icon: <Icon path={mdiCalculatorVariant} title="Calculator " size={1.5} />,
     url: "calculators",
+  },
+  {
+    name: "Time",
+    icon: <Icon path={mdiClock} title="Time " size={1.5} />,
+    url: "time",
   },
 ];

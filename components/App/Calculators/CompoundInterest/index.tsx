@@ -35,7 +35,10 @@ export default function CompoundInterestCalculator(props: {
     if (principal && time && rate && compoundingFrequency) {
       setFinalAmount(
         principal *
-          (Math.pow(1 + (rate / (compoundingFrequency * 100)), compoundingFrequency * time))
+          Math.pow(
+            1 + rate / (compoundingFrequency * 100),
+            compoundingFrequency * time
+          )
       );
     }
   }, [principal, time, rate, compoundingFrequency]);
@@ -129,7 +132,7 @@ export default function CompoundInterestCalculator(props: {
         {/* <Typography>&nbsp; ( &nbsp;</Typography> */}
         <TextField
           placeholder="P"
-            helperText="Principal"
+          helperText="Principal"
           variant="standard"
           type="number"
           value={principal}
@@ -147,7 +150,7 @@ export default function CompoundInterestCalculator(props: {
         <Typography variant="h2">(&nbsp;</Typography>
         <TextField
           placeholder="R"
-            helperText="Rate"
+          helperText="Rate"
           variant="standard"
           type="number"
           value={rate}
@@ -162,7 +165,7 @@ export default function CompoundInterestCalculator(props: {
         <Typography variant="h5">&nbsp;&divide; &nbsp;</Typography>
         <TextField
           placeholder="N"
-            helperText="CI frequency"
+          helperText="CI frequency"
           variant="standard"
           type="number"
           value={compoundingFrequency}
@@ -179,7 +182,7 @@ export default function CompoundInterestCalculator(props: {
         <Typography variant="h5">(</Typography>
         <TextField
           placeholder="N"
-            helperText="CI frequency"
+          helperText="CI frequency"
           variant="standard"
           type="number"
           value={compoundingFrequency}
@@ -194,7 +197,7 @@ export default function CompoundInterestCalculator(props: {
         <Typography>&nbsp;*&nbsp;</Typography>
         <TextField
           placeholder="T"
-            helperText="Time"
+          helperText="Time"
           variant="standard"
           type="number"
           value={time}
@@ -213,6 +216,9 @@ export default function CompoundInterestCalculator(props: {
         direction="row"
         style={{ marginTop: "5%", marginLeft: "4%" }}
       >
+        <Typography variant="caption">*CI = Compound Interest</Typography>
+      </Grid>
+      <Grid container direction="row" style={{ marginLeft: "4%" }}>
         <Typography variant="caption">*P = Principal/Intital amount</Typography>
       </Grid>
       <Grid container direction="row" style={{ marginLeft: "4%" }}>
