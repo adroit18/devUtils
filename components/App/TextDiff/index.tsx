@@ -13,7 +13,12 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const EXACT_DIFF_OPTIONS = {
+const EXACT_DIFF_OPTIONS: {
+  [key: string]: {
+    callback: (text1: string, text2: string) => void;
+    description: string;
+  };
+} = {
   diffWords: {
     callback: Diff?.diffWords,
     description: "Words (compares word by word, ignoring whitespace)",
@@ -56,24 +61,28 @@ export default function TextDiff(): JSX.Element {
   ]);
 
   const [selectedDiffMethod, setSelectedDiffMethod] =
-    React.useState("diffWords");
+    React.useState<string>("diffWords");
 
   React.useEffect(() => {
     const display = document.getElementById("actualDiff");
-    display.innerHTML = "";
-    const fragment = document.createDocumentFragment();
-    let diff = Diff?.diffWords(content[0], content[1]);
-    const availableFunc = EXACT_DIFF_OPTIONS[selectedDiffMethod].callback;
-    diff = availableFunc(content[0], content[1]);
-    diff.forEach((part) => {
-      const color = part.added ? "green" : part.removed ? "red" : "grey";
-      const span = document.createElement("span");
-      span.style.color = color;
-      span.style.fontSize = "30px";
-      span.appendChild(document.createTextNode(part.value));
-      fragment.appendChild(span);
-    });
-    display?.appendChild(fragment);
+    if (display) {
+      display.innerHTML = "";
+      const fragment = document.createDocumentFragment();
+      let diff = Diff?.diffWords(content[0], content[1]);
+      const availableFunc = EXACT_DIFF_OPTIONS[selectedDiffMethod].callback;
+      diff = availableFunc(content[0], content[1]);
+      diff.forEach(
+        (part: { added: string; removed: string; value: string }) => {
+          const color = part.added ? "green" : part.removed ? "red" : "grey";
+          const span = document.createElement("span");
+          span.style.color = color;
+          span.style.fontSize = "30px";
+          span.appendChild(document.createTextNode(part.value));
+          fragment.appendChild(span);
+        }
+      );
+      display?.appendChild(fragment);
+    }
   });
 
   return (
