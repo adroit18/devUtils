@@ -13,6 +13,42 @@ import {
   Typography,
 } from "@material-ui/core";
 
+const EXACT_DIFF_OPTIONS = {
+  diffWords: {
+    callback: Diff?.diffWords,
+    description: "Words (compares word by word, ignoring whitespace)",
+  },
+  diffChars: {
+    callback: Diff?.diffChars,
+    description: "Chars (compares character by character)",
+  },
+  diffWordsWithSpace: {
+    callback: Diff?.diffWordsWithSpace,
+    description:
+      "Words With Space (compares word by word, treating whitespace as significant)",
+  },
+  diffLines: {
+    callback: Diff?.diffLines,
+    description: "Lines (compares line by line)",
+  },
+  diffSentences: {
+    callback: Diff?.diffSentences,
+    description: "Sentences (compares sentence by sentence)",
+  },
+  diffJson: {
+    callback: Diff?.diffJson,
+    description:
+      "Json (diffs two JSON objects, compares the fields defined on each)",
+  },
+  diffCss: {
+    callback: Diff?.diffCss,
+    description: "CSS (compares CSS tokens)",
+  },
+  diffArrays: {
+    callback: Diff?.diffArrays,
+    description: "Arrays (compares the fields defined on two arrays using ===)",
+  },
+};
 export default function TextDiff(): JSX.Element {
   const [content, setContent] = React.useState([
     "//paste first version of text here",
@@ -27,25 +63,8 @@ export default function TextDiff(): JSX.Element {
     display.innerHTML = "";
     const fragment = document.createDocumentFragment();
     let diff = Diff?.diffWords(content[0], content[1]);
-    console.log(selectedDiffMethod);
-    if (selectedDiffMethod == "diffWords") {
-      diff = Diff?.diffWords(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffChars") {
-      diff = Diff?.diffChars(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffWordsWithSpace") {
-      diff = Diff?.diffWordsWithSpace(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffLines") {
-      diff = Diff?.diffLines(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffSentences") {
-      diff = Diff?.diffSentences(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffJson") {
-      diff = Diff?.diffJson(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffCss") {
-      diff = Diff?.diffCss(content[0], content[1]);
-    } else if (selectedDiffMethod == "diffArrays") {
-      diff = Diff?.diffArrays(content[0], content[1]);
-    }
-
+    const availableFunc = EXACT_DIFF_OPTIONS[selectedDiffMethod].callback;
+    diff = availableFunc(content[0], content[1]);
     diff.forEach((part) => {
       const color = part.added ? "green" : part.removed ? "red" : "grey";
       const span = document.createElement("span");
@@ -95,46 +114,16 @@ export default function TextDiff(): JSX.Element {
                 setSelectedDiffMethod((event.target as HTMLInputElement).value)
               }
             >
-              <FormControlLabel
-                value="diffChars"
-                control={<Radio />}
-                label="Chars (compares character by character)"
-              />
-              <FormControlLabel
-                value="diffWords"
-                control={<Radio />}
-                label="diffWords (compares word by word, ignoring whitespace)"
-              />
-              <FormControlLabel
-                value="diffWordsWithSpace"
-                control={<Radio />}
-                label="Words With Space (compares word by word, treating whitespace as significant)"
-              />
-              <FormControlLabel
-                value="diffLines"
-                control={<Radio />}
-                label="diffLines (compares line by line)"
-              />
-              <FormControlLabel
-                value="diffSentences"
-                control={<Radio />}
-                label="diffSentences (compares sentence by sentence)"
-              />
-              <FormControlLabel
-                value="diffJson"
-                control={<Radio />}
-                label="Json (diffs two JSON objects, compares the fields defined on each)"
-              />
-              <FormControlLabel
-                value="diffArrays"
-                control={<Radio />}
-                label="Arrays (compares the fields defined on two arrays using ===)"
-              />
-              <FormControlLabel
-                value="diffCss"
-                control={<Radio />}
-                label="CSS (compares CSS tokens)"
-              />
+              {Object.keys(EXACT_DIFF_OPTIONS).map((option, key) => {
+                return (
+                  <FormControlLabel
+                    key={`${option}${key}`}
+                    value={option}
+                    control={<Radio />}
+                    label={EXACT_DIFF_OPTIONS[option].description}
+                  />
+                );
+              })}
             </RadioGroup>
           </FormControl>
         </Grid>
