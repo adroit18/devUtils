@@ -21,7 +21,7 @@ ace.config.setModuleUrl(
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function JsonFormatAndValidate(): any {
+export default function JsonFormatterBeautifier(): any {
   const [content, setContent] = React.useState(["", ""]);
 
   const getFormattedJson = React.useCallback((contentVal = []) => {
@@ -31,7 +31,7 @@ export default function JsonFormatAndValidate(): any {
       const outputJson = JSON.stringify(inputJson, null, 2);
       setContent([inputVal, outputJson]);
     } catch (e) {
-      setContent([inputVal, `invalid json ERROR : ${e.message}`]);
+      setContent([inputVal, "invalid json"]);
     }
   }, []);
 

@@ -12,6 +12,7 @@ import {
   mdiNoteMultipleOutline,
   mdiCalculatorVariant,
   mdiClock,
+  mdiCodeTags,
 } from "@mdi/js";
 
 const JsonFormatAndValidateEditor = dynamic(
@@ -53,8 +54,12 @@ const Calculators = dynamic(import("../components/App/Calculators"), {
 const Time = dynamic(import("../components/App/Time"), {
   ssr: false,
 });
+const CodeBeautifier = dynamic(import("../components/App/CodeBeautifiers"), {
+  ssr: false,
+});
 
 export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
+  "code-format-beautify": "code-format-beautify",
   "json-format-or-validate": "json-format-or-validate",
   "text-difference": "text-difference",
   "base64-encode-decode": "base64-encode-decode",
@@ -89,6 +94,7 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "calculators/compound-interest-calculator": <Calculators />,
   "calculators/date-difference-calculator": <Calculators />,
   time: <Time />,
+  "code-format-beautify": <CodeBeautifier />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
@@ -106,6 +112,7 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "calculators/compound-interest-calculator": "Compound Interest Calculator",
   "calculators/date-difference-calculator": "Date Difference Calculator",
   time: "Time",
+  "code-format-beautify": "code-format-beautify",
 };
 
 export const availableDevUtilOptions: Array<{
@@ -113,6 +120,11 @@ export const availableDevUtilOptions: Array<{
   icon: JSX.Element;
   url: string;
 }> = [
+  {
+    name: "Code beautify",
+    icon: <Icon path={mdiCodeTags} title="Time " size={1.5} />,
+    url: "code-format-beautify",
+  },
   {
     name: "Json format / validate",
     icon: <Icon path={mdiCodeJson} title="JSON Format / Validate" size={1.5} />,
