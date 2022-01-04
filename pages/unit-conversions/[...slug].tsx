@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { ROUTE_TO_UNIQUE_UTILITIES } from "../../constants";
 import HTML from "../_html";
 
-export default function AllCalculatorsRoutes(): JSX.Element {
+export default function AllUnitConversionRoutes(): JSX.Element {
   const { asPath: fullRoute } = useRouter();
-  return <HTML url={ROUTE_TO_UNIQUE_UTILITIES[fullRoute.substring(1)]} />;
+  console.log(fullRoute);
+  return <HTML url={ROUTE_TO_UNIQUE_UTILITIES["unit-conversions"]} />;
 }

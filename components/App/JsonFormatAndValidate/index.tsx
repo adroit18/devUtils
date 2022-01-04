@@ -10,8 +10,6 @@ import "ace-builds/src-min-noconflict/theme-tomorrow";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import { AVAILABLE_FUNCTIONS } from "../Calculators/MathematicsCalculator/constants";
-import { Divider } from "@material-ui/core";
 
 ace.config.set(
   "basePath",

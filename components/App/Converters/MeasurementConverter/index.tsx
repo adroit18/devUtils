@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import React from "react";
+import { useRouter } from "next/router";
 import convert from "convert-units";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
@@ -14,10 +15,44 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 
 export default function MeasurementConverter(): JSX.Element {
-  const [selectedMeasurement, setSelectedMeasurement] =
-    React.useState<string>("");
-  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>("");
-  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>("");
+  const { push: routerPush, asPath: fullRoute } = useRouter();
+  const [, urlSelectedMeasurement = "", urlUnitsSelected = ""] = fullRoute
+    .split("/")
+    .filter((val) => val);
+  const [, urlSelectedUnitFrom = "", , urlSelectedUnitTo = ""] =
+    urlUnitsSelected.split("-").filter((val) => val);
+
+  let urlSelectedUnitFromUnit, urlSelectedUnitToUnit;
+  const urlSelectedMeasurementUnit = decodeURI(urlSelectedMeasurement);
+
+  const allUnitsDescribedForSelectedMeasurement = convert().list(
+    urlSelectedMeasurement
+  );
+
+  for (
+    let unit = 0;
+    unit < allUnitsDescribedForSelectedMeasurement.length;
+    unit++
+  ) {
+    const currentUnit = allUnitsDescribedForSelectedMeasurement[unit];
+    if (currentUnit.plural === decodeURI(urlSelectedUnitFrom)) {
+      urlSelectedUnitFromUnit = currentUnit.abbr;
+    } else if (currentUnit.plural === decodeURI(urlSelectedUnitTo)) {
+      urlSelectedUnitToUnit = currentUnit.abbr;
+    } else if (urlSelectedUnitToUnit && urlSelectedUnitFromUnit) {
+      break;
+    }
+  }
+
+  const [selectedMeasurement, setSelectedMeasurement] = React.useState<string>(
+    urlSelectedMeasurementUnit
+  );
+  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>(
+    urlSelectedUnitFromUnit
+  );
+  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>(
+    urlSelectedUnitToUnit
+  );
 
   const [valFrom, setValFrom] = React.useState<string | number>("");
   const [valTo, setValTo] = React.useState<string | number>("");
@@ -25,17 +60,55 @@ export default function MeasurementConverter(): JSX.Element {
   const handleMeasurementSelect = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    setSelectedMeasurement(event?.target?.value as string);
+    const newMeasurement = event?.target?.value as string;
+    setSelectedMeasurement(newMeasurement);
+    resetAllStates();
+    if (newMeasurement) {
+      routerPush(`/unit-conversions/${newMeasurement}`);
+    }
   };
 
   const handleUnitSelectFrom = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    setSelectedUnitFrom(event?.target?.value as string);
+    const newSelectedUnitFrom = event?.target?.value as string;
+    setSelectedUnitFrom(newSelectedUnitFrom);
+    updateConversionResults({ newSelectedUnitFrom });
+    if (selectedMeasurement && newSelectedUnitFrom) {
+      routerPush(
+        `/unit-conversions/${selectedMeasurement}/convert-${
+          convert().describe(newSelectedUnitFrom).plural
+        }`
+      );
+    }
   };
 
   const handleUnitSelectTo = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedUnitTo(event?.target?.value as string);
+    const newSelectedUnitTo = event?.target?.value as string;
+    setSelectedUnitTo(newSelectedUnitTo);
+    updateConversionResults({ newSelectedUnitTo });
+    if (selectedMeasurement && selectedUnitFrom && newSelectedUnitTo) {
+      routerPush(
+        `/unit-conversions/${selectedMeasurement}/convert-${
+          convert().describe(selectedUnitFrom).plural
+        }-to-${convert().describe(newSelectedUnitTo).plural}`
+      );
+    }
+  };
+
+  const updateConversionResults = (newVals): void => {
+    const { newSelectedUnitFrom, newSelectedUnitTo } = newVals;
+    const currentSelectedUnitFrom = newSelectedUnitFrom || selectedUnitFrom;
+    const currentSelectedUnitTo = newSelectedUnitTo || selectedUnitTo;
+    if (valFrom && currentSelectedUnitFrom && currentSelectedUnitTo) {
+      setValTo(
+        convert(valFrom).from(currentSelectedUnitFrom).to(currentSelectedUnitTo)
+      );
+    } else if (valTo && currentSelectedUnitFrom && currentSelectedUnitTo) {
+      setValFrom(
+        convert(valTo).from(currentSelectedUnitFrom).to(currentSelectedUnitTo)
+      );
+    }
   };
 
   const getUnitOptionsFrom = React.useCallback(() => {
@@ -109,10 +182,13 @@ export default function MeasurementConverter(): JSX.Element {
     [selectedUnitFrom, selectedUnitTo]
   );
 
-  React.useEffect(() => {
+  const resetAllStates = React.useCallback(() => {
     setSelectedUnitFrom("");
     setSelectedUnitTo("");
-  }, [selectedMeasurement]);
+    setValFrom("");
+    setValTo("");
+    routerPush(`/unit-conversions`);
+  }, [routerPush]);
 
   return (
     <Paper
