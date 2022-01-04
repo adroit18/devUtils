@@ -1,5 +1,5 @@
 import React from "react";
-import { exchangeRates, convert } from "exchange-rates-api";
+import { useRouter } from "next/router";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -14,48 +14,117 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-import { CURRENCY_TO_DETAILS } from "../../../../constants";
 
 export default function MeasurementConverter(): JSX.Element {
-  const [currencyMetadata, setCurrencyMetadata] = React.useState<{[key:string]:number}>({});
-  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>("");
-  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>("");
+  const { push: routerPush, asPath: fullRoute } = useRouter();
+  const [, conversionDescriptionUrl = ""] = fullRoute
+    .split("/")
+    .filter((val) => val);
+  const [selectedUnitFromUrl = "", , selectedUnitToUrl = ""] =
+    conversionDescriptionUrl.split("-").filter((val) => val);
+
+  console.log(conversionDescriptionUrl.split("-").filter((val) => val));
+
+  const [currencySymbols, setCurrencySymbols] = React.useState<{
+    [key: string]: string;
+  }>({});
+  const [currencyMetadata, setCurrencyMetadata] = React.useState<{
+    [key: string]: number;
+  }>({});
+  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>(
+    decodeURI(selectedUnitFromUrl)
+  );
+  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>(
+    decodeURI(selectedUnitToUrl)
+  );
   const [valFrom, setValFrom] = React.useState<number>();
   const [valTo, setValTo] = React.useState<number>();
   const [baseCurrency, setBaseCurrency] = React.useState<string>("INR");
-
-  const handleUnitSelectFrom = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    setSelectedUnitFrom(event?.target?.value as string);
-  };
-
-  const handleUnitSelectTo = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedUnitTo(event?.target?.value as string);
-  };
 
   const getCurrencyOptions = React.useCallback(() => {
     return Object.keys(currencyMetadata).map((val: string, index: number) => {
       return (
         <MenuItem value={val} key={`${val}_${index}`}>
-          {val}
+          {currencySymbols[val]?.description} - ({val})
         </MenuItem>
       );
     });
-  }, [currencyMetadata]);
+  }, [currencyMetadata, currencySymbols]);
 
-  const handleValFromInput = React.useCallback(
-    async (event = {}, takeCurrVal = false) => {
-      const valInput = event?.target?.value as number;
-      const newValFrom = Number(takeCurrVal ? valFrom : valInput);
-      setValFrom(newValFrom);
-      if (newValFrom >= 0 && selectedUnitFrom && selectedUnitTo) {
-        setValTo(
-          await convert(newValFrom, selectedUnitFrom, selectedUnitTo, "")
-        );
+  const convertCurrency = React.useCallback(async (config) => {
+    const { from, to, amount } = config;
+    const requestURL = `https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`;
+    const response = await fetch(requestURL);
+    const responseJson = await response.json();
+    return responseJson.result;
+  }, []);
+
+  console.log(valFrom, valTo, selectedUnitFrom, selectedUnitTo, "out");
+  const updateChange = React.useCallback(
+    async (newConfig = {}): Promise<void> => {
+      console.log(valFrom, valTo, selectedUnitFrom, selectedUnitTo, "in");
+      const {
+        newValFrom = valFrom,
+        newValTo = valTo,
+        newUnitFrom = selectedUnitFrom,
+        newUnitTo = selectedUnitTo,
+      } = newConfig;
+      console.log(newValFrom, newValTo, newUnitFrom, newUnitTo);
+      if (newUnitTo && newUnitFrom) {
+        if (newValFrom >= 0) {
+          const convertedResult = await convertCurrency({
+            from: newUnitFrom,
+            to: newUnitTo,
+            amount: newValFrom,
+          });
+          setValTo(convertedResult);
+        } else if (newValTo >= 0) {
+          const convertedResult = await convertCurrency({
+            from: newUnitFrom,
+            to: newUnitTo,
+            amount: newValTo,
+          });
+          setValFrom(convertedResult);
+        }
+        if (newUnitTo && newUnitFrom) {
+          routerPush(`/currency-conversion/${newUnitFrom}-to-${newUnitTo}`);
+        }
       }
     },
-    [selectedUnitFrom, selectedUnitTo, valFrom]
+    [
+      convertCurrency,
+      routerPush,
+      selectedUnitFrom,
+      selectedUnitTo,
+      valFrom,
+      valTo,
+    ]
+  );
+
+  const handleUnitSelectFrom = React.useCallback(
+    (event: React.ChangeEvent<{ value: unknown }>) => {
+      const newUnitFrom = event?.target?.value as string;
+      setSelectedUnitFrom(newUnitFrom);
+      updateChange({ newUnitFrom });
+    },
+    [updateChange]
+  );
+
+  const handleUnitSelectTo = React.useCallback(
+    (event: React.ChangeEvent<{ value: unknown }>) => {
+      const newUnitTo = event?.target?.value as string;
+      setSelectedUnitTo(newUnitTo);
+      updateChange({ newUnitTo });
+    },
+    [updateChange]
+  );
+  const handleValFromInput = React.useCallback(
+    async (event = {}) => {
+      const newValFrom = event?.target?.value as number;
+      setValFrom(newValFrom);
+      updateChange({ newValFrom });
+    },
+    [updateChange]
   );
 
   const handleValToInput = React.useCallback(
@@ -63,23 +132,29 @@ export default function MeasurementConverter(): JSX.Element {
       const valInput = event?.target?.value as number;
       const newValTo = Number(valInput);
       setValTo(newValTo);
-      if (newValTo >= 0 && selectedUnitFrom && selectedUnitTo) {
-        setValFrom(
-          await convert(newValTo, selectedUnitTo, selectedUnitFrom, "")
-        );
-      }
+      updateChange({ newValTo });
     },
-    [selectedUnitFrom, selectedUnitTo]
+    [updateChange]
   );
 
   const fetchCurrencyData = React.useCallback(async () => {
-    const data = await exchangeRates().latest().base(baseCurrency).fetch() as {[key:string]:number};
-    setCurrencyMetadata(data);
+    const requestURL = `https://api.exchangerate.host/latest?base=${baseCurrency}`;
+    const response = await fetch(requestURL);
+    const responseJson = await response.json();
+    setCurrencyMetadata(responseJson?.rates);
   }, [baseCurrency]);
 
+  const fetchSymbolData = React.useCallback(async () => {
+    const requestURLForSymbolsData = "https://api.exchangerate.host/symbols";
+    const responseForSymbols = await fetch(requestURLForSymbolsData);
+    const responseForSymbolsJson = await responseForSymbols.json();
+    setCurrencySymbols(responseForSymbolsJson?.symbols);
+  }, []);
+
   React.useEffect(() => {
+    fetchSymbolData();
     fetchCurrencyData();
-  }, [fetchCurrencyData]);
+  }, [fetchCurrencyData, fetchSymbolData]);
 
   return (
     <Paper
@@ -112,7 +187,7 @@ export default function MeasurementConverter(): JSX.Element {
             label="From"
             helperText={
               selectedUnitFrom
-                ? CURRENCY_TO_DETAILS[selectedUnitFrom]?.name
+                ? currencySymbols[selectedUnitFrom]?.description
                 : "Please select currency"
             }
             variant="outlined"
@@ -129,7 +204,7 @@ export default function MeasurementConverter(): JSX.Element {
             <IconButton
               color="primary"
               onClick={() => {
-                handleValFromInput({}, true);
+                updateChange();
               }}
             >
               <Icon path={mdiSwapHorizontal} title="Converters" size={1} />
@@ -160,7 +235,7 @@ export default function MeasurementConverter(): JSX.Element {
             label="To"
             helperText={
               selectedUnitTo
-                ? CURRENCY_TO_DETAILS[selectedUnitTo]?.name
+                ? currencySymbols[selectedUnitTo]?.description
                 : "Please select currency"
             }
             variant="outlined"
@@ -201,13 +276,13 @@ export default function MeasurementConverter(): JSX.Element {
 
       <List style={{ marginTop: "2%" }}>
         <Grid spacing={4} direction="row" container>
-          {Object.keys(currencyMetadata).map((val:string, index) => {
+          {Object.keys(currencyMetadata).map((val: string, index) => {
             return (
               <Grid item xs={5} key={`${val}-${index}`}>
                 <Paper>
                   <ListItem>
                     <ListItemText
-                      primary={`${CURRENCY_TO_DETAILS[val]?.name} (${val})`}
+                      primary={`${currencySymbols[val]?.description} (${val})`}
                     />
                     <ListItemSecondaryAction>
                       {currencyMetadata[val]}

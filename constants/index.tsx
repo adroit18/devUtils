@@ -54,44 +54,6 @@ const Time = dynamic(import("../components/App/Time"), {
   ssr: false,
 });
 
-export const CURRENCY_TO_DETAILS: {
-  [key: string]: { name: string; sign: string };
-} = {
-  AUD: { name: "Australian Dollar", sign: "-" },
-  BRL: { name: "Brazilian Real", sign: "-" },
-  GBP: { name: "British Pound Sterline", sign: "-" },
-  BGN: { name: "Bulgarian Lev", sign: "-" },
-  CAD: { name: "Canadian Dollar", sign: "-" },
-  CNY: { name: "Chinese Yuan Renminbi", sign: "-" },
-  HRK: { name: "Croatian Kuna", sign: "-" },
-  CZK: { name: "Czech Koruna", sign: "-" },
-  DKK: { name: "Danish Krone", sign: "-" },
-  EUR: { name: "Euro", sign: "-" },
-  HKD: { name: "Hong Kong Dollar", sign: "-" },
-  HUF: { name: "Hungarian Forint", sign: "-" },
-  ISK: { name: "Icelandic Krona", sign: "-" },
-  IDR: { name: "Indonesian Rupiah", sign: "-" },
-  INR: { name: "Indian Rupee", sign: "-" },
-  ILS: { name: "Israeli Shekel", sign: "-" },
-  JPY: { name: "Japanese Yen", sign: "-" },
-  MYR: { name: "Malaysian Ringgit", sign: "-" },
-  MXN: { name: "Mexican Peso", sign: "-" },
-  NZD: { name: "New Zealand Dollar", sign: "-" },
-  NOK: { name: "Norwegian Krone", sign: "-" },
-  PHP: { name: "Philippine Peso", sign: "-" },
-  PLN: { name: "Polish Zloty", sign: "-" },
-  RON: { name: "Romanian Leu", sign: "-" },
-  RUB: { name: "Russian Rouble", sign: "-" },
-  SGD: { name: "Singapore Dollar", sign: "-" },
-  ZAR: { name: "South African Rand", sign: "-" },
-  KRW: { name: "South Korean Won", sign: "-" },
-  SEK: { name: "Swedish Krona", sign: "-" },
-  CHF: { name: "Swiss Franc", sign: "-" },
-  THB: { name: "Thai Baht", sign: "-" },
-  TRY: { name: "Turkish Lira", sign: "-" },
-  USD: { name: "US Dollar", sign: "-" },
-};
-
 export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
   "json-format-or-validate": "json-format-or-validate",
   "text-difference": "text-difference",

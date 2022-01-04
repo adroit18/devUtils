@@ -162,7 +162,7 @@ export default function CompoundInterestCalculator(props: {
           }}
           style={{ width: "10%" }}
         />
-        <Typography variant="h5">&nbsp;&divide; &nbsp;</Typography>
+        <Typography variant="h2">&nbsp;/ &nbsp;</Typography>
         <TextField
           placeholder="N"
           helperText="CI frequency"
