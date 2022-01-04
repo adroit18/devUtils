@@ -26,7 +26,9 @@ export default function MeasurementConverter(): JSX.Element {
   console.log(conversionDescriptionUrl.split("-").filter((val) => val));
 
   const [currencySymbols, setCurrencySymbols] = React.useState<{
-    [key: string]: string;
+    [key: string]: {
+      description: string;
+    };
   }>({});
   const [currencyMetadata, setCurrencyMetadata] = React.useState<{
     [key: string]: number;
