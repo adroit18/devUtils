@@ -146,7 +146,7 @@ export default function TextDiff(): JSX.Element {
           xs={12}
           container
           direction="row"
-          style={{ marginTop: "1%" }}
+          // style={{ marginTop: "0.5%" }}
         >
           <div id="actualDiff"></div>
         </Grid>

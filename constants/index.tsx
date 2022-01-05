@@ -2,7 +2,6 @@ import React from "react";
 import Icon from "@mdi/react";
 import dynamic from "next/dynamic";
 import {
-  mdiCodeJson,
   mdiCompare,
   mdiCpu64Bit,
   mdiKeyLink,
@@ -13,12 +12,9 @@ import {
   mdiCalculatorVariant,
   mdiClock,
   mdiCodeTags,
+  mdiCodeBrackets,
 } from "@mdi/js";
 
-const JsonFormatAndValidateEditor = dynamic(
-  import("../components/App/JsonFormatAndValidate"),
-  { ssr: false }
-);
 const TextDiff = dynamic(import("../components/App/TextDiff"), { ssr: false });
 const Base64EncodeDecode = dynamic(
   import("../components/App/Base64EncodeDecode"),
@@ -57,10 +53,11 @@ const Time = dynamic(import("../components/App/Time"), {
 const CodeBeautifier = dynamic(import("../components/App/CodeBeautifiers"), {
   ssr: false,
 });
+const CodeEditor = dynamic(import("../components/App/CodeEditor"), {
+  ssr: false,
+});
 
 export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
-  "code-format-beautify": "code-format-beautify",
-  "json-format-or-validate": "json-format-or-validate",
   "text-difference": "text-difference",
   "base64-encode-decode": "base64-encode-decode",
   "url-encode-decode": "url-encode-decode",
@@ -77,10 +74,11 @@ export const ROUTE_TO_UNIQUE_UTILITIES: { [key: string]: string } = {
   "calculators/date-difference-calculator":
     "calculators/date-difference-calculator",
   time: "time",
+  "code-format-beautify": "code-format-beautify",
+  "code-editor": "code-editor",
 };
 
 export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
-  "json-format-or-validate": <JsonFormatAndValidateEditor />,
   "text-difference": <TextDiff />,
   "base64-encode-decode": <Base64EncodeDecode />,
   "url-encode-decode": <UrlEncodeDecode />,
@@ -95,10 +93,10 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
   "calculators/date-difference-calculator": <Calculators />,
   time: <Time />,
   "code-format-beautify": <CodeBeautifier />,
+  "code-editor": <CodeEditor />,
 };
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
-  "json-format-or-validate": "Json format or validate",
   "text-difference": "Compare text",
   "base64-encode-decode": "Encode Decode base64",
   "url-encode-decode": "Encode Decode url",
@@ -113,6 +111,7 @@ export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "calculators/date-difference-calculator": "Date Difference Calculator",
   time: "Time",
   "code-format-beautify": "code-format-beautify",
+  "code-editor": "code-editor",
 };
 
 export const availableDevUtilOptions: Array<{
@@ -121,14 +120,14 @@ export const availableDevUtilOptions: Array<{
   url: string;
 }> = [
   {
-    name: "Code beautify",
-    icon: <Icon path={mdiCodeTags} title="Time " size={1.5} />,
-    url: "code-format-beautify",
+    name: "Code editor",
+    icon: <Icon path={mdiCodeBrackets} title="Time " size={1.5} />,
+    url: "code-editor",
   },
   {
-    name: "Json format / validate",
-    icon: <Icon path={mdiCodeJson} title="JSON Format / Validate" size={1.5} />,
-    url: "json-format-or-validate",
+    name: "Code beautify/format",
+    icon: <Icon path={mdiCodeTags} title="Time " size={1.5} />,
+    url: "code-format-beautify",
   },
   {
     name: "Text diff",
@@ -136,14 +135,9 @@ export const availableDevUtilOptions: Array<{
     url: "text-difference",
   },
   {
-    name: "Base64 encode / decode",
-    icon: <Icon path={mdiCpu64Bit} title="Text Diff" size={1.5} />,
-    url: "base64-encode-decode",
-  },
-  {
-    name: "Url encode / decode",
-    icon: <Icon path={mdiKeyLink} title="Text Diff" size={1.5} />,
-    url: "url-encode-decode",
+    name: "JSON : YML : XML",
+    icon: <Icon path={mdiRecycleVariant} title="JSON : YML : XML" size={1.5} />,
+    url: "json-yaml-xml-conversion",
   },
   {
     name: "Converters",
@@ -156,19 +150,24 @@ export const availableDevUtilOptions: Array<{
     url: "currency-conversion",
   },
   {
-    name: "JSON : YML : XML",
-    icon: <Icon path={mdiRecycleVariant} title="JSON : YML : XML" size={1.5} />,
-    url: "json-yaml-xml-conversion",
+    name: "Calculators",
+    icon: <Icon path={mdiCalculatorVariant} title="Calculator " size={1.5} />,
+    url: "calculators",
+  },
+  {
+    name: "Base64 encode / decode",
+    icon: <Icon path={mdiCpu64Bit} title="Text Diff" size={1.5} />,
+    url: "base64-encode-decode",
+  },
+  {
+    name: "Url encode / decode",
+    icon: <Icon path={mdiKeyLink} title="Text Diff" size={1.5} />,
+    url: "url-encode-decode",
   },
   {
     name: "Noter",
     icon: <Icon path={mdiNoteMultipleOutline} title="Noter" size={1.5} />,
     url: "take-notes",
-  },
-  {
-    name: "Calculators",
-    icon: <Icon path={mdiCalculatorVariant} title="Calculator " size={1.5} />,
-    url: "calculators",
   },
   {
     name: "Time",
