@@ -98,20 +98,20 @@ export const UNIQUE_UTILITIES_COMPONENTS: { [key: string]: JSX.Element } = {
 
 export const ROUTE_TO_NAMES: { [key: string]: string } = {
   "text-difference": "Compare text",
-  "base64-encode-decode": "Encode Decode base64",
-  "url-encode-decode": "Encode Decode url",
+  "base64-encode-decode": "Encode decode base64",
+  "url-encode-decode": "Encode decode url",
   "unit-conversions": "Unit conversions",
   "currency-conversion": "Currency conversion",
   "json-yaml-xml-conversion": "Json, Yaml and Xml conversion",
   "take-notes": "Notes",
   calculators: "Calculators",
-  "calculators/mathematics-calculator": "Mathematics Calculator",
-  "calculators/simple-interest-calculator": "Simple Interest Calculator",
-  "calculators/compound-interest-calculator": "Compound Interest Calculator",
-  "calculators/date-difference-calculator": "Date Difference Calculator",
+  "calculators/mathematics-calculator": "Mathematics calculator",
+  "calculators/simple-interest-calculator": "Simple interest calculator",
+  "calculators/compound-interest-calculator": "Compound interest calculator",
+  "calculators/date-difference-calculator": "Date difference calculator",
   time: "Time",
-  "code-format-beautify": "code-format-beautify",
-  "code-editor": "code-editor",
+  "code-format-beautify": "Code format beautify",
+  "code-editor": "Code editor",
 };
 
 export const availableDevUtilOptions: Array<{

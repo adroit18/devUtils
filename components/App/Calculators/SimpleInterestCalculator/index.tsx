@@ -116,11 +116,12 @@ export default function SimpleInterestCalculator(props: {
       </Grid>
       <Grid container spacing={3} style={{ marginTop: "2%" }}>
         <Grid item xs={12} container direction="row">
-          <Grid item xs={4} container direction="row">
+          <Grid item xs={5} container direction="row">
             <Typography variant="h6"> Principal (P)</Typography>
           </Grid>
-          <Grid item xs={8} container direction="row">
+          <Grid item xs={5} container direction="row">
             <TextField
+              fullWidth
               placeholder="Principal/Initial Amount"
               helperText="Principal/Initial Amount"
               variant="standard"
@@ -136,11 +137,12 @@ export default function SimpleInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid item xs={12} container direction="row">
-          <Grid item xs={4} container direction="row">
+          <Grid item xs={5} container direction="row">
             <Typography variant="h6"> Rate of Interest (R)</Typography>
           </Grid>
-          <Grid item xs={8} container direction="row">
+          <Grid item xs={5} container direction="row">
             <TextField
+              fullWidth
               placeholder="Rate of Interest"
               helperText="Rate of Interest"
               variant="standard"
@@ -156,11 +158,12 @@ export default function SimpleInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid item xs={12} container direction="row">
-          <Grid item xs={4} container direction="row">
+          <Grid item xs={5} container direction="row">
             <Typography variant="h6"> Time (T)</Typography>
           </Grid>
-          <Grid item xs={8} container direction="row">
+          <Grid item xs={5} container direction="row">
             <TextField
+              fullWidth
               placeholder="Investment Time"
               helperText="Investment Time"
               variant="standard"
@@ -176,11 +179,12 @@ export default function SimpleInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid item xs={12} container direction="row">
-          <Grid item xs={4} container direction="row">
+          <Grid item xs={5} container direction="row">
             <Typography variant="h6"> Simple Interest (SI)</Typography>
           </Grid>
-          <Grid item xs={8} container direction="row">
+          <Grid item xs={5} container direction="row">
             <TextField
+              fullWidth
               placeholder="Simple Interest"
               helperText="Simple Interest"
               variant="standard"
@@ -196,11 +200,12 @@ export default function SimpleInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid item xs={12} container direction="row">
-          <Grid item xs={4} container direction="row">
+          <Grid item xs={5} container direction="row">
             <Typography variant="h6"> Final Amount</Typography>
           </Grid>
-          <Grid item xs={8} container direction="row">
+          <Grid item xs={5} container direction="row">
             <TextField
+              fullWidth
               placeholder="Final Amount"
               helperText="Final Amount"
               variant="standard"

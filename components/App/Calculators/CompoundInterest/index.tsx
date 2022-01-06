@@ -66,11 +66,12 @@ export default function CompoundInterestCalculator(props: {
 
       <Grid container spacing={3} style={{ marginTop: "2%" }}>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
+          <Grid xs={5} direction="row">
             <Typography variant="h6">Principal (P)</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
+              fullWidth
               placeholder="Principal Amount"
               helperText="Principal Amount"
               variant="standard"
@@ -86,11 +87,12 @@ export default function CompoundInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
+          <Grid xs={5} direction="row">
             <Typography variant="h6">Rate (R)</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
+              fullWidth
               placeholder="Rate of CI"
               helperText="Rate of CI"
               variant="standard"
@@ -106,12 +108,13 @@ export default function CompoundInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
-            <Typography variant="h6">Compounding Times (N)</Typography>
+          <Grid xs={5} direction="row">
+            <Typography variant="h6">CI Frequency (N)</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
-              placeholder="Compounding Times"
+              fullWidth
+              placeholder="CI Frequency"
               helperText="CI frequency"
               variant="standard"
               type="number"
@@ -126,11 +129,12 @@ export default function CompoundInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
+          <Grid xs={5} direction="row">
             <Typography variant="h6">Time (T)</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
+              fullWidth
               placeholder="Time"
               helperText="Time"
               variant="standard"
@@ -146,11 +150,12 @@ export default function CompoundInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
+          <Grid xs={5} direction="row">
             <Typography variant="h6">Compound Interest (CI)</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
+              fullWidth
               placeholder="Compound Interest"
               helperText="Compound Interest"
               variant="standard"
@@ -167,11 +172,12 @@ export default function CompoundInterestCalculator(props: {
           </Grid>
         </Grid>
         <Grid xs={12} container item direction="row">
-          <Grid xs={4} direction="row">
+          <Grid xs={5} direction="row">
             <Typography variant="h6">Final Amount</Typography>
           </Grid>
-          <Grid xs={8} direction="row">
+          <Grid xs={5} direction="row">
             <TextField
+              fullWidth
               placeholder="Final Amount"
               helperText="Final Amount"
               variant="standard"
