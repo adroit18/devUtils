@@ -101,137 +101,139 @@ export default function SimpleInterestCalculator(props: {
   );
 
   return (
-    <Grid container spacing={5}>
-      <Grid item xs={7} container direction="row">
-        <Typography color="textPrimary" variant="h6">
-          Formulae:
-        </Typography>
-        <Typography color="textSecondary" variant="h6">
-          &nbsp;Simple Interest = (P*R*T)/100
-        </Typography>
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} container direction="row">
+          <Typography color="textSecondary" variant="h6">
+            &nbsp;Simple Interest = (P*R*T)/100
+          </Typography>
+        </Grid>
+        <Grid item xs={12} container direction="row">
+          <Typography color="textSecondary" variant="h6">
+            &nbsp;Final Amount = (P + SI)
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid xs={12} container direction="row" justify="space-around">
-        <TextField
-          placeholder="Final Amount"
-          helperText="Final Amount"
-          variant="standard"
-          type="number"
-          value={finalAmount}
-          defaultValue={finalAmount}
-          disabled={true}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
-        <Typography>=</Typography>
-        <TextField
-          placeholder="Principal/Initial Amount"
-          helperText="Principal/Initial Amount"
-          variant="standard"
-          type="number"
-          value={principal}
-          onChange={(event) => handlePrincipalChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
-        <Typography>+</Typography>
-        <TextField
-          placeholder="Simple Interest"
-          helperText="Simple Interest"
-          variant="standard"
-          type="number"
-          value={simpleInterest}
-          onChange={(event) => handleSimpleInterestChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
+      <Grid container spacing={3} style={{ marginTop: "2%" }}>
+        <Grid item xs={12} container direction="row">
+          <Grid item xs={4} container direction="row">
+            <Typography variant="h6"> Principal (P)</Typography>
+          </Grid>
+          <Grid item xs={8} container direction="row">
+            <TextField
+              placeholder="Principal/Initial Amount"
+              helperText="Principal/Initial Amount"
+              variant="standard"
+              type="number"
+              value={principal}
+              onChange={(event) => handlePrincipalChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container direction="row">
+          <Grid item xs={4} container direction="row">
+            <Typography variant="h6"> Rate of Interest (R)</Typography>
+          </Grid>
+          <Grid item xs={8} container direction="row">
+            <TextField
+              placeholder="Rate of Interest"
+              helperText="Rate of Interest"
+              variant="standard"
+              type="number"
+              value={rate}
+              onChange={(event) => handleRateChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container direction="row">
+          <Grid item xs={4} container direction="row">
+            <Typography variant="h6"> Time (T)</Typography>
+          </Grid>
+          <Grid item xs={8} container direction="row">
+            <TextField
+              placeholder="Investment Time"
+              helperText="Investment Time"
+              variant="standard"
+              type="number"
+              value={time}
+              onChange={(event) => handleTimeChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container direction="row">
+          <Grid item xs={4} container direction="row">
+            <Typography variant="h6"> Simple Interest (SI)</Typography>
+          </Grid>
+          <Grid item xs={8} container direction="row">
+            <TextField
+              placeholder="Simple Interest"
+              helperText="Simple Interest"
+              variant="standard"
+              type="number"
+              value={simpleInterest}
+              onChange={(event) => handleSimpleInterestChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container direction="row">
+          <Grid item xs={4} container direction="row">
+            <Typography variant="h6"> Final Amount</Typography>
+          </Grid>
+          <Grid item xs={8} container direction="row">
+            <TextField
+              placeholder="Final Amount"
+              helperText="Final Amount"
+              variant="standard"
+              type="number"
+              value={finalAmount}
+              defaultValue={finalAmount}
+              disabled={true}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid
-        xs={12}
-        container
-        direction="row"
-        justify="space-around"
-        style={{ marginTop: "3%" }}
-      >
-        <TextField
-          placeholder="Simple Interest"
-          helperText="Simple Interest"
-          variant="standard"
-          type="number"
-          value={simpleInterest}
-          onChange={(event) => handleSimpleInterestChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "18%" }}
-        />
-        <Typography>=</Typography>
-        <Typography>&nbsp; ( &nbsp;</Typography>
-        <TextField
-          placeholder="Principal/Intial Amount"
-          helperText="Principal/Intial Amount"
-          variant="standard"
-          type="number"
-          value={principal}
-          onChange={(event) => handlePrincipalChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "27%" }}
-        />
-        <Typography>*&nbsp;</Typography>
-        <TextField
-          placeholder="Rate of Interest"
-          helperText="Rate of Interest"
-          variant="standard"
-          type="number"
-          value={rate}
-          onChange={(event) => handleRateChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "18%" }}
-        />
-        <Typography>*&nbsp;</Typography>
-        <TextField
-          placeholder="Investment Time"
-          helperText="Investment Time"
-          variant="standard"
-          type="number"
-          value={time}
-          onChange={(event) => handleTimeChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "20%" }}
-        />
-        <Typography>) / 100</Typography>
+      <Grid container spacing={1}>
+        <Grid container direction="row" style={{ marginTop: "5%" }}>
+          <Typography variant="caption">
+            *P = Principal/Intital amount
+          </Typography>
+        </Grid>
+        <Grid container direction="row">
+          <Typography variant="caption">
+            *R = Annual rate of interest
+          </Typography>
+        </Grid>
+        <Grid container direction="row">
+          <Typography variant="caption">
+            *T = investment time in years
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid container direction="row" style={{ marginTop: "5%" }}>
-        <Typography variant="caption">*P = Principal/Intital amount</Typography>
-      </Grid>
-      <Grid container direction="row">
-        <Typography variant="caption">*R = Annual rate of interest</Typography>
-      </Grid>
-      <Grid container direction="row">
-        <Typography variant="caption">*T = investment time in years</Typography>
-      </Grid>
-    </Grid>
+    </>
   );
 }
