@@ -50,188 +50,169 @@ export default function CompoundInterestCalculator(props: {
   }, [principal, finalAmount]);
 
   return (
-    <Grid container spacing={5}>
-      <Grid item xs={7} container direction="row">
-        <Typography color="textPrimary" variant="h6">
-          Formulae:
-        </Typography>
-        <Typography color="textSecondary" variant="h6">
-          &nbsp; Final Amount = P*((1 + (R/N))^(N*T))
-        </Typography>
-        <Typography color="textSecondary" variant="h6">
-          Compound Interest = Final Amount - P
-        </Typography>
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12} direction="row">
+          <Typography color="textSecondary" variant="h6">
+            Compound Interest = Final Amount - P
+          </Typography>
+        </Grid>
+        <Grid item xs={12} direction="row">
+          <Typography color="textSecondary" variant="h6">
+            Final Amount = P*((1 + (R/N))^(N*T))
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid xs={12} container direction="row" justify="space-around">
-        <TextField
-          placeholder="Compound Interest"
-          helperText="Compound Interest"
-          variant="standard"
-          type="number"
-          value={compoundInterest}
-          defaultValue={compoundInterest}
-          disabled={true}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
-        <Typography variant="h5">=</Typography>
-        <TextField
-          placeholder="Final Amount"
-          helperText="Final Amount"
-          variant="standard"
-          type="number"
-          value={finalAmount}
-          disabled={true}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
-        <Typography variant="h5">-</Typography>
-        <TextField
-          placeholder="Principal Amount"
-          helperText="Principal Amount"
-          variant="standard"
-          type="number"
-          value={principal}
-          onChange={(event) => handlePrincipalChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-        />
-      </Grid>
-      <Grid
-        xs={12}
-        container
-        direction="row"
-        // justify="space-around"
-        style={{ marginTop: "3%", marginLeft: "4%" }}
-        // spacing={5}
-      >
-        <TextField
-          placeholder="Final Amount"
-          helperText="Final Amount"
-          variant="standard"
-          type="number"
-          value={finalAmount}
-          disabled={true}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "12%" }}
-        />
-        <Typography variant="h5">&nbsp;=&nbsp;&nbsp;</Typography>
-        {/* <Typography>&nbsp; ( &nbsp;</Typography> */}
-        <TextField
-          placeholder="P"
-          helperText="Principal"
-          variant="standard"
-          type="number"
-          value={principal}
-          onChange={(event) => handlePrincipalChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "10%" }}
-        />
-        <Typography variant="h5">&nbsp;*</Typography>
-        <Typography variant="h2">(1+</Typography>
 
-        <Typography variant="h2">(&nbsp;</Typography>
-        <TextField
-          placeholder="R"
-          helperText="Rate"
-          variant="standard"
-          type="number"
-          value={rate}
-          onChange={(event) => handleRateChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "10%" }}
-        />
-        <Typography variant="h2">&nbsp;/ &nbsp;</Typography>
-        <TextField
-          placeholder="N"
-          helperText="CI frequency"
-          variant="standard"
-          type="number"
-          value={compoundingFrequency}
-          onChange={(event) => handleCompoundingFrequencyChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "10%" }}
-        />
-        <Typography variant="h2">)) </Typography>
-        <Typography variant="h5">^</Typography>
-        <Typography variant="h5">(</Typography>
-        <TextField
-          placeholder="N"
-          helperText="CI frequency"
-          variant="standard"
-          type="number"
-          value={compoundingFrequency}
-          onChange={(event) => handleCompoundingFrequencyChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "10%" }}
-        />
-        <Typography>&nbsp;*&nbsp;</Typography>
-        <TextField
-          placeholder="T"
-          helperText="Time"
-          variant="standard"
-          type="number"
-          value={time}
-          onChange={(event) => handleTimeChange(event)}
-          InputProps={{
-            inputProps: {
-              min: 0,
-            },
-          }}
-          style={{ width: "5%" }}
-        />
-        <Typography variant="h5">&nbsp;)</Typography>
+      <Grid container spacing={3} style={{ marginTop: "2%" }}>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Principal (P)</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Principal Amount"
+              helperText="Principal Amount"
+              variant="standard"
+              type="number"
+              value={principal}
+              onChange={(event) => handlePrincipalChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Rate (R)</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Rate of CI"
+              helperText="Rate of CI"
+              variant="standard"
+              type="number"
+              value={rate}
+              onChange={(event) => handleRateChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Compounding Times (N)</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Compounding Times"
+              helperText="CI frequency"
+              variant="standard"
+              type="number"
+              value={compoundingFrequency}
+              onChange={(event) => handleCompoundingFrequencyChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Time (T)</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Time"
+              helperText="Time"
+              variant="standard"
+              type="number"
+              value={time}
+              onChange={(event) => handleTimeChange(event)}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Compound Interest (CI)</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Compound Interest"
+              helperText="Compound Interest"
+              variant="standard"
+              type="number"
+              value={compoundInterest}
+              defaultValue={compoundInterest}
+              disabled={true}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid xs={12} container item direction="row">
+          <Grid xs={4} direction="row">
+            <Typography variant="h6">Final Amount</Typography>
+          </Grid>
+          <Grid xs={8} direction="row">
+            <TextField
+              placeholder="Final Amount"
+              helperText="Final Amount"
+              variant="standard"
+              type="number"
+              value={finalAmount}
+              disabled={true}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
+            />
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid
-        container
-        direction="row"
-        style={{ marginTop: "5%", marginLeft: "4%" }}
-      >
-        <Typography variant="caption">*CI = Compound Interest</Typography>
+
+      <Grid container spacing={1} style={{ marginTop: "1%" }}>
+        <Grid xs={12} item container direction="row">
+          <Typography variant="caption">*CI = Compound Interest</Typography>
+        </Grid>
+        <Grid xs={12} item container direction="row">
+          <Typography variant="caption">
+            *P = Principal/Intital amount
+          </Typography>
+        </Grid>
+        <Grid xs={12} item container direction="row">
+          <Typography variant="caption">
+            *R = Annual rate of interest
+          </Typography>
+        </Grid>
+        <Grid xs={12} item container direction="row">
+          <Typography variant="caption">
+            *T = investment time in years
+          </Typography>
+        </Grid>
+        <Grid xs={12} item container direction="row">
+          <Typography variant="caption">
+            *N = number of times the amount is compounding
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid container direction="row" style={{ marginLeft: "4%" }}>
-        <Typography variant="caption">*P = Principal/Intital amount</Typography>
-      </Grid>
-      <Grid container direction="row" style={{ marginLeft: "4%" }}>
-        <Typography variant="caption">*R = Annual rate of interest</Typography>
-      </Grid>
-      <Grid container direction="row" style={{ marginLeft: "4%" }}>
-        <Typography variant="caption">*T = investment time in years</Typography>
-      </Grid>
-      <Grid container direction="row" style={{ marginLeft: "4%" }}>
-        <Typography variant="caption">
-          *N = number of times the amount is compounding
-        </Typography>
-      </Grid>
-    </Grid>
+    </>
   );
 }
