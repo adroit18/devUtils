@@ -215,7 +215,7 @@ import "ace-builds/src-noconflict/theme-xcode";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 
-import { Grid, TextField } from "@material-ui/core";
+import { Grid, Paper, TextField } from "@material-ui/core";
 import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "./constant";
 import { Autocomplete } from "@material-ui/lab";
 
@@ -307,34 +307,35 @@ export default function CodeEditor(): any {
             <TextField
               {...params}
               value={selectedTheme}
-              label="Code language"
+              label="Editor theme"
               variant="outlined"
-              helperText="Select a language"
+              helperText="Select a theme"
             />
           )}
         />
       </Grid>
-      <Grid item xs={12} direction="row" justify="flex-start">
-        <AceEditor
-          mode={selectedLanguage}
-          theme={selectedTheme}
-          // onChange={onChange}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true,
-            tabSize: 2,
-            showLineNumbers: true,
-          }}
-          width="1000px"
-          fontSize={18}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-        />
-      </Grid>
+      <Paper variant="elevation" elevation={4} style={{ width: "100%" }}>
+        <Grid item xs={12} direction="row" justify="flex-start">
+          <AceEditor
+            mode={selectedLanguage}
+            theme={selectedTheme}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+            setOptions={{
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
+              enableSnippets: true,
+              tabSize: 2,
+              showLineNumbers: true,
+            }}
+            width="100%"
+            fontSize={18}
+            showPrintMargin={true}
+            showGutter={true}
+            highlightActiveLine={true}
+          />
+        </Grid>
+      </Paper>
     </Grid>
   );
 }
