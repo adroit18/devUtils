@@ -22,7 +22,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { availableDevUtilOptions, ROUTE_TO_NAMES } from "../../../constants";
+import { AVAILABLE_DEV_UTIL_OPTIONS, ROUTE_TO_NAMES } from "../../../constants";
 import Grid from "@material-ui/core/Grid";
 
 const drawerWidth = 270;
@@ -161,7 +161,7 @@ export default function UtilMenu(props: {
         </div>
         <Divider />
         <List>
-          {availableDevUtilOptions.map((text) => (
+          {AVAILABLE_DEV_UTIL_OPTIONS.map((text) => (
             <Link href={`/${text.url}`} key={text.url}>
               <ListItem button>
                 <ListItemIcon>{text.icon}</ListItemIcon>

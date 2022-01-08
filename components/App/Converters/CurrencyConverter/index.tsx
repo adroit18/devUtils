@@ -23,22 +23,18 @@ export default function MeasurementConverter(): JSX.Element {
   const [selectedUnitFromUrl = "", , selectedUnitToUrl = ""] =
     conversionDescriptionUrl.split("-").filter((val) => val);
 
-  console.log(conversionDescriptionUrl.split("-").filter((val) => val));
-
   const [currencySymbols, setCurrencySymbols] = React.useState<{
     [key: string]: {
       description: string;
+      code: string;
     };
   }>({});
+
   const [currencyMetadata, setCurrencyMetadata] = React.useState<{
     [key: string]: number;
   }>({});
-  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>(
-    decodeURI(selectedUnitFromUrl)
-  );
-  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>(
-    decodeURI(selectedUnitToUrl)
-  );
+  const [selectedUnitFrom, setSelectedUnitFrom] = React.useState<string>("");
+  const [selectedUnitTo, setSelectedUnitTo] = React.useState<string>("");
   const [valFrom, setValFrom] = React.useState<number>();
   const [valTo, setValTo] = React.useState<number>();
   const [baseCurrency, setBaseCurrency] = React.useState<string>("INR");
@@ -61,40 +57,47 @@ export default function MeasurementConverter(): JSX.Element {
     return responseJson.result;
   }, []);
 
-  console.log(valFrom, valTo, selectedUnitFrom, selectedUnitTo, "out");
   const updateChange = React.useCallback(
     async (newConfig = {}): Promise<void> => {
-      console.log(valFrom, valTo, selectedUnitFrom, selectedUnitTo, "in");
       const {
         newValFrom = valFrom,
         newValTo = valTo,
         newUnitFrom = selectedUnitFrom,
         newUnitTo = selectedUnitTo,
+        updated,
       } = newConfig;
-      console.log(newValFrom, newValTo, newUnitFrom, newUnitTo);
       if (newUnitTo && newUnitFrom) {
-        if (newValFrom >= 0) {
+        if (
+          (!updated && newValFrom >= 0) ||
+          (newValFrom >= 0 && updated == "From")
+        ) {
           const convertedResult = await convertCurrency({
             from: newUnitFrom,
             to: newUnitTo,
             amount: newValFrom,
           });
           setValTo(convertedResult);
-        } else if (newValTo >= 0) {
+        } else if (
+          (!updated && newValTo >= 0) ||
+          (newValTo >= 0 && updated == "To")
+        ) {
           const convertedResult = await convertCurrency({
-            from: newUnitFrom,
-            to: newUnitTo,
+            from: newUnitTo,
+            to: newUnitFrom,
             amount: newValTo,
           });
           setValFrom(convertedResult);
         }
         if (newUnitTo && newUnitFrom) {
-          routerPush(`/currency-conversion/${newUnitFrom}-to-${newUnitTo}`);
+          routerPush(
+            `/currency-conversion/${currencySymbols[newUnitFrom]?.description}-to-${currencySymbols[newUnitTo]?.description}`
+          );
         }
       }
     },
     [
       convertCurrency,
+      currencySymbols,
       routerPush,
       selectedUnitFrom,
       selectedUnitTo,
@@ -124,7 +127,7 @@ export default function MeasurementConverter(): JSX.Element {
     async (event = {}) => {
       const newValFrom = event?.target?.value as number;
       setValFrom(newValFrom);
-      updateChange({ newValFrom });
+      updateChange({ newValFrom, updated: "From" });
     },
     [updateChange]
   );
@@ -134,7 +137,7 @@ export default function MeasurementConverter(): JSX.Element {
       const valInput = event?.target?.value as number;
       const newValTo = Number(valInput);
       setValTo(newValTo);
-      updateChange({ newValTo });
+      updateChange({ newValTo, updated: "To" });
     },
     [updateChange]
   );
@@ -151,7 +154,32 @@ export default function MeasurementConverter(): JSX.Element {
     const responseForSymbols = await fetch(requestURLForSymbolsData);
     const responseForSymbolsJson = await responseForSymbols.json();
     setCurrencySymbols(responseForSymbolsJson?.symbols);
+    const currencySymbols = responseForSymbolsJson?.symbols;
+    updateFromAndTo(currencySymbols);
   }, []);
+
+  const updateFromAndTo = React.useCallback(
+    async (fetchSymbols) => {
+      let selectedUnitFromUrlCode = "",
+        selectedUnitToUrlCode = "";
+      const availableCurrencyCodes = Object.keys(fetchSymbols || []);
+      for (let i = 0; i < availableCurrencyCodes.length; i += 1) {
+        const description =
+          fetchSymbols[availableCurrencyCodes[i]]?.description;
+        const code = fetchSymbols[availableCurrencyCodes[i]]?.code;
+        if (description === decodeURI(selectedUnitFromUrl)) {
+          selectedUnitFromUrlCode = code;
+        } else if (description === decodeURI(selectedUnitToUrl)) {
+          selectedUnitToUrlCode = code;
+        } else if (selectedUnitFromUrlCode && selectedUnitToUrlCode) {
+          break;
+        }
+      }
+      setSelectedUnitFrom(selectedUnitFromUrlCode);
+      setSelectedUnitTo(selectedUnitToUrlCode);
+    },
+    [selectedUnitFromUrl, selectedUnitToUrl]
+  );
 
   React.useEffect(() => {
     fetchSymbolData();

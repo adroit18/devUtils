@@ -6,3 +6,8 @@ export interface IDispatchAction {
 export interface ISelectedRoute {
   selectedUtility: string;
 }
+
+export interface IAvailableUrls {
+  url: string;
+  name: string;
+}
