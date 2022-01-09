@@ -6,7 +6,7 @@ import { codeEditorSubUrls } from "../CodeEditor/subUrls";
 import { currencyConverterSubUrls } from "../Converters/CurrencyConverter/subUrls";
 import { measurementSubUrls } from "../Converters/MeasurementConverter/subUrls";
 
-export const NUMBER_OF_URLS_TO_SHOW = 0;
+export const NUMBER_OF_URLS_TO_SHOW = 10;
 
 export const SUB_URLS: {
   [key: string]: IAvailableUrls[];

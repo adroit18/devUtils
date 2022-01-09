@@ -4,7 +4,6 @@ import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "./constant";
 export const codeEditorSubUrls = function (): IAvailableUrls[] {
   const subUrls = [];
   for (let language = 0; language < LANGUAGE_OPTIONS.length; language += 1) {
-    console.log(LANGUAGE_OPTIONS[language]);
     subUrls.push({
       url: `code-editor/language-${LANGUAGE_OPTIONS[language]}`,
       name: `Code editor for ${LANGUAGE_OPTIONS[language]}`,
