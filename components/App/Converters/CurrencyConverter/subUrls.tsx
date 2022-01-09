@@ -175,11 +175,21 @@ const POSSIBLE_AVAILABLE_CURRENCY_LIST: {
   ZMW: { description: "Zambian Kwacha", code: "ZMW" },
   ZWL: { description: "Zimbabwean Dollar", code: "ZWL" },
 };
-export const currencyConverterSubUrls = function (): IAvailableUrls[] {
+export const currencyConverterSubUrls = function (
+  MAX_ITER = 25
+): IAvailableUrls[] {
   const subUrls = [];
   const CURRENCY_LIST = Object.keys(POSSIBLE_AVAILABLE_CURRENCY_LIST);
-  for (let currencyI = 0; currencyI < CURRENCY_LIST.length; currencyI += 1) {
-    for (let currencyJ = 0; currencyJ < CURRENCY_LIST.length; currencyJ += 1) {
+  for (
+    let currencyI = 0;
+    currencyI < CURRENCY_LIST.length && currencyI < MAX_ITER;
+    currencyI += 1
+  ) {
+    for (
+      let currencyJ = 0;
+      currencyJ < CURRENCY_LIST.length && currencyJ < MAX_ITER;
+      currencyJ += 1
+    ) {
       if (CURRENCY_LIST[currencyI] != CURRENCY_LIST[currencyJ]) {
         subUrls.push({
           url: `currency-conversion/${

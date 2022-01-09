@@ -7,28 +7,29 @@ import { currencyConverterSubUrls } from "../Converters/CurrencyConverter/subUrl
 import { measurementSubUrls } from "../Converters/MeasurementConverter/subUrls";
 
 export const NUMBER_OF_URLS_TO_SHOW = 10;
+export const MAX_ITER = 25;
 
 export const SUB_URLS: {
   [key: string]: IAvailableUrls[];
 } = {
   "code-editor": getNRandomFromUrlsArray(
-    codeEditorSubUrls(),
+    codeEditorSubUrls(MAX_ITER),
     NUMBER_OF_URLS_TO_SHOW
   ) as IAvailableUrls[],
   "code-format-beautify": getNRandomFromUrlsArray(
-    codeBeautifierSubUrls(),
+    codeBeautifierSubUrls(MAX_ITER),
     NUMBER_OF_URLS_TO_SHOW
   ) as IAvailableUrls[],
   "currency-conversion": getNRandomFromUrlsArray(
-    currencyConverterSubUrls(),
+    currencyConverterSubUrls(MAX_ITER),
     NUMBER_OF_URLS_TO_SHOW
   ) as IAvailableUrls[],
   "unit-conversions": getNRandomFromUrlsArray(
-    measurementSubUrls(),
+    measurementSubUrls(MAX_ITER),
     NUMBER_OF_URLS_TO_SHOW
   ) as IAvailableUrls[],
   calculators: getNRandomFromUrlsArray(
-    calculatorSubUrls(),
+    calculatorSubUrls(MAX_ITER),
     NUMBER_OF_URLS_TO_SHOW
   ) as IAvailableUrls[],
 };

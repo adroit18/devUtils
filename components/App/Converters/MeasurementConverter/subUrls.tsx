@@ -1,7 +1,7 @@
 import convert from "convert-units";
 import { IAvailableUrls } from "../../../../constants/interface";
 
-export const measurementSubUrls = function (): IAvailableUrls[] {
+export const measurementSubUrls = function (MAX_ITER = 25): IAvailableUrls[] {
   const uniqueMeasurementsAvailable: string[] = [];
   convert()
     .list()
@@ -13,7 +13,7 @@ export const measurementSubUrls = function (): IAvailableUrls[] {
   const subUrls = [];
   for (
     let measurement = 0;
-    measurement < uniqueMeasurementsAvailable.length;
+    measurement < uniqueMeasurementsAvailable.length && measurement < MAX_ITER;
     measurement += 1
   ) {
     subUrls.push({
@@ -26,12 +26,12 @@ export const measurementSubUrls = function (): IAvailableUrls[] {
     );
     for (
       let fromOption = 0;
-      fromOption < optionsAvailable.length;
+      fromOption < optionsAvailable.length && fromOption < MAX_ITER;
       fromOption += 1
     ) {
       for (
         let toOption = 0;
-        toOption < optionsAvailable.length;
+        toOption < optionsAvailable.length && toOption < MAX_ITER;
         toOption += 1
       ) {
         if (optionsAvailable[toOption] != optionsAvailable[fromOption]) {

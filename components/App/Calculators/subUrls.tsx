@@ -1,6 +1,6 @@
 import { IAvailableUrls } from "../../../constants/interface";
 
-export const calculatorSubUrls = function (): IAvailableUrls[] {
+export const calculatorSubUrls = function (MAX_ITER = 25): IAvailableUrls[] {
   return [
     {
       url: "calculators/mathematics-calculator",
